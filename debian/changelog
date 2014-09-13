@@ -1,12 +1,5 @@
 drmips (1.2.2-1) unstable; urgency=low
 
-  * New version (1.2.2):
-    - Support Java 6
-
- -- Bruno Nova <brunomb.nova@gmail.com>  Fri, 13 Jun 2014 11:26:09 +0100
-
-drmips (1.2.1-1) unstable; urgency=low
-
   * Initial release. (Closes: #751397)
 
- -- Bruno Nova <brunomb.nova@gmail.com>  Thu, 12 Jun 2014 14:09:17 +0100
+ -- Bruno Nova <brunomb.nova@gmail.com>  Fri, 13 Jun 2014 11:26:09 +0100
