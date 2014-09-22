@@ -1,0 +1,3 @@
+# JRE 6 or greater is needed to run the simulator.
+# This dependency allows it to be run with JRE 6.
+drmips: ored-depends-on-obsolete-package depends: openjdk-6-jre
