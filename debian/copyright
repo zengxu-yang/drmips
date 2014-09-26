@@ -31,7 +31,13 @@ Copyright: 2013-2014 Bruno Nova <brunomb.nova@gmail.com>
 License: GPL-3.0+
 
 Files: src/pc/DrMIPS/src/com/jtattoo/*
-Copyright: 2012+ MH Software-Entwicklung
+Copyright: 2002 and later by MH Software-Entwicklung
+License: GPL-2.0+
+
+Files: src/pc/DrMIPS/src/com/jtattoo/plaf/BaseInternalFrameTitlePane.java
+       src/pc/DrMIPS/src/com/jtattoo/plaf/BaseTabbedPaneUI.java
+       src/pc/DrMIPS/src/com/jtattoo/plaf/BaseTitlePane.java
+Copyright: 2003 Sun Microsystems, Inc.
 License: GPL-2.0+
 
 Files: src/pc/DrMIPS/src/org/fife/*
@@ -67,7 +73,7 @@ License: BSD-3-Clause
  2. Redistributions in binary form must reproduce the above copyright
     notice, this list of conditions and the following disclaimer in the
     documentation and/or other materials provided with the distribution.
- 3. Neither the name of the copyright holder nor the names of its contributors
+ 3. Neither the name of the author nor the names of its contributors
     may be used to endorse or promote products derived from this software
     without specific prior written permission.
  .
