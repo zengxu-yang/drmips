@@ -37,7 +37,8 @@ License: GPL-2.0+
 Files: src/pc/DrMIPS/src/com/jtattoo/plaf/BaseInternalFrameTitlePane.java
        src/pc/DrMIPS/src/com/jtattoo/plaf/BaseTabbedPaneUI.java
        src/pc/DrMIPS/src/com/jtattoo/plaf/BaseTitlePane.java
-Copyright: 2003 Sun Microsystems, Inc.
+Copyright: 2002 and later by MH Software-Entwicklung
+           2003 Sun Microsystems, Inc.
 License: GPL-2.0+
 
 Files: src/pc/DrMIPS/src/org/fife/*
