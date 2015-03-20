@@ -1,8 +1,8 @@
-drmips (1.3.0-1) UNRELEASED; urgency=low
+drmips (1.3.0-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Bruno Nova <brunomb.nova@gmail.com>  Fri, 20 Mar 2015 11:35:03 +0000
+ -- Bruno Nova <brunomb.nova@gmail.com>  Fri, 20 Mar 2015 13:57:21 +0000
 
 drmips (1.2.3-1) unstable; urgency=low
 
