@@ -32,14 +32,14 @@ License: GPL-3.0+
 
 Files: src/pc/DrMIPS/src/com/jtattoo/*
 Copyright: 2002 and later by MH Software-Entwicklung
-License: GPL-2.0+ or LPGL-2.0+ with classpath exception or Apache-2.0
+License: GPL-2.0+ or LGPL-2.0+ with classpath exception or Apache-2.0
 
 Files: src/pc/DrMIPS/src/com/jtattoo/plaf/BaseInternalFrameTitlePane.java
        src/pc/DrMIPS/src/com/jtattoo/plaf/BaseTabbedPaneUI.java
        src/pc/DrMIPS/src/com/jtattoo/plaf/BaseTitlePane.java
 Copyright: 2002 and later by MH Software-Entwicklung
            2003 Sun Microsystems, Inc.
-License: GPL-2.0+ or LPGL-2.0+ with classpath exception or Apache-2.0
+License: GPL-2.0+ or LGPL-2.0+ with classpath exception or Apache-2.0
 
 Files: src/pc/DrMIPS/src/org/fife/*
 Copyright: 2012-2013 Robert Futrell
