@@ -1,18 +1,18 @@
 Source: drmips
-Section: java
+Section: electronics
 Priority: optional
 Maintainer: Bruno Nova <brunomb.nova@gmail.com>
 Build-Depends: debhelper (>= 9), cmake (>= 2.8), texlive, texlive-latex-extra,
                texlive-science, texlive-lang-portuguese,
-               openjdk-7-jdk | java7-jdk | openjdk-6-jdk | java6-jdk
-Standards-Version: 3.9.5
+               openjdk-7-jdk | java6-jdk
+Standards-Version: 3.9.6
 Homepage: https://bitbucket.org/brunonova/drmips
 Vcs-Git: https://bitbucket.org/brunonova/drmips -b debian
 Vcs-Browser: https://bitbucket.org/brunonova/drmips/src/debian
 
 Package: drmips
 Architecture: all
-Depends: ${misc:Depends}, openjdk-7-jre | java7-runtime | openjdk-6-jre | java6-runtime
+Depends: ${misc:Depends}, openjdk-7-jre | java6-runtime
 Description: Educational MIPS simulator
  DrMIPS is a graphical simulator of the MIPS processor to support computer
  architecture teaching and learning. It is intuitive, versatile and
