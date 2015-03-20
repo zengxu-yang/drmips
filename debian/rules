@@ -5,6 +5,6 @@
 # Override to remove files that are not cleaned by "dh_clean"
 override_dh_clean:
 	dh_clean
-	rm -rf src/android/DrMIPS/res/raw src/pc/DrMIPS/cpu/ \
-	   src/android/DrMIPS/libs/DrMIPSSimulator.jar src/pc/DrMIPS/lib/DrMIPSSimulator.jar \
+	rm -rf src/pc/DrMIPS/cpu/ src/android/DrMIPS/app/src/main/res/raw/ \
+	   src/android/DrMIPS/app/libs/DrMIPSSimulator.jar src/pc/DrMIPS/lib/DrMIPSSimulator.jar \
 	   src/pc/DrMIPS/src/org/feup/brunonova/drmips/gui/DrMIPS.java

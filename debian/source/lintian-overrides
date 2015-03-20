@@ -1,3 +1,5 @@
-# JDK 6 or greater is needed to build the simulator.
-# This build dependency allows it to be built with JDK 6.
-drmips source: ored-build-depends-on-obsolete-package build-depends: openjdk-6-jdk
+# This file is used to build the Android project (Android Studio uses Gradle,
+# which requires this jar file to be present, unfortunately).
+# However, this package builds and installs only the PC version of the
+# simulator, so this lintian warning is not relevant.
+drmips source: source-contains-prebuilt-java-object src/android/DrMIPS/gradle/wrapper/gradle-wrapper.jar
