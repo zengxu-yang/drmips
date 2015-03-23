@@ -21,7 +21,7 @@ drmips (1.3.0-1) experimental; urgency=low
       src/android/DrMIPS/gradle/wrapper/gradle-wrapper.jar.
   * debian/upstream/signing-key.asc: updated the upstream signing key.
 
- -- Bruno Nova <brunomb.nova@gmail.com>  Mon, 23 Mar 2015 14:14:02 +0000
+ -- Bruno Nova <brunomb.nova@gmail.com>  Mon, 23 Mar 2015 14:23:01 +0000
 
 drmips (1.2.3-1) unstable; urgency=low
 
