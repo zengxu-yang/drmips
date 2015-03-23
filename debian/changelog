@@ -1,8 +1,27 @@
-drmips (1.3.0-1) unstable; urgency=low
+drmips (1.3.0-1) experimental; urgency=low
 
   * New upstream release.
+  * debian/control:
+    - Bumped Standards-Version to 3.9.6.
+    - Changed section to electronics.
+    - Simplified Build-Depends by removing redundant dependencies on java7-jdk
+      and openjdk-6-jdk.
+    - Simplified Depends by removing redundant dependencies on java7-runtime
+      and openjdk-6-jre.
+  * debian/copyright:
+    - Added commercial license of src/pc/DrMIPS/src/com/jtattoo/*.
+    - Added copyright and license of src/pc/DrMIPS/src/org/jscroll/*.
+    - Updated copyright years.
+  * debian/doc-base.*: files renamed (by upstream).
+  * debian/lintian-overrides: removed as it's no longer necessary.
+  * debian/rules: updated the paths that dh_clean removes.
+  * debian/source/lintian-overrides:
+    - Removed an override that is no longer necessary.
+    - Added an override for source-contains-prebuilt-java-object in the path
+      src/android/DrMIPS/gradle/wrapper/gradle-wrapper.jar.
+  * debian/upstream/signing-key.asc: updated the upstream signing key.
 
- -- Bruno Nova <brunomb.nova@gmail.com>  Fri, 20 Mar 2015 13:57:21 +0000
+ -- Bruno Nova <brunomb.nova@gmail.com>  Mon, 23 Mar 2015 14:14:02 +0000
 
 drmips (1.2.3-1) unstable; urgency=low
 
