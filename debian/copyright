@@ -41,7 +41,7 @@ Copyright: 2002 and later by MH Software-Entwicklung
            2003 Sun Microsystems, Inc.
 License: GPL-2.0+ or LGPL-2.0+ with classpath exception or Apache-2.0
 
-Files: src/pc/DrMIPS/src/com/joptsimple/*
+Files: src/pc/DrMIPS/src/joptsimple/*
 Copyright: 2004-2015 Paul R. Holser, Jr.
 License: MIT
 
