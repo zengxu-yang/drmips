@@ -1,0 +1,14 @@
+/cmake
+/doc
+/src
+/CMakeLists.txt
+/LICENSE
+/README.mkd
+
+debian/*.log
+debian/*.debhelper
+debian/*.substvars
+debian/drmips
+debian/files
+obj-x86_64-linux-gnu
+/.pc
