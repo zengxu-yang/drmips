@@ -6,9 +6,9 @@ Build-Depends: debhelper (>= 9), cmake (>= 2.8), texlive, texlive-latex-extra,
                texlive-science, texlive-lang-portuguese,
                openjdk-7-jdk | java6-jdk
 Standards-Version: 3.9.6
-Homepage: https://bitbucket.org/brunonova/drmips
-Vcs-Git: https://bitbucket.org/brunonova/drmips -b debian
-Vcs-Browser: https://bitbucket.org/brunonova/drmips/src/debian
+Homepage: http://brunonova.github.io/drmips/
+Vcs-Git: https://github.com/brunonova/drmips -b debian
+Vcs-Browser: https://github.com/brunonova/drmips/tree/debian
 
 Package: drmips
 Architecture: all

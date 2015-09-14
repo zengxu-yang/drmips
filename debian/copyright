@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: drmips
 Upstream-Contact: Bruno Nova <brunomb.nova@gmail.com>
-Source: https://bitbucket.org/brunonova/drmips
+Source: https://github.com/brunonova/drmips
 
 Files: *
 Copyright: 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
