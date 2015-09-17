@@ -1,11 +1,15 @@
+/AUTHORS
 /cmake
-/doc
-/src
 /CMakeLists.txt
+/CONTRIBUTING.md
+/doc
+/INSTALL.md
 /LICENSE
-/README.mkd
-/changelog
 /misc
+/NEWS
+/README.md
+/src
+/.travis.yml
 
 debian/*.log
 debian/*.debhelper
