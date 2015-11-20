@@ -7,4 +7,4 @@ override_dh_clean:
 	dh_clean
 	rm -rf src/pc/DrMIPS/cpu/ src/android/DrMIPS/app/src/main/res/raw/ \
 	   src/android/DrMIPS/app/libs/DrMIPSSimulator.jar src/pc/DrMIPS/lib/DrMIPSSimulator.jar \
-	   src/pc/DrMIPS/src/org/feup/brunonova/drmips/gui/DrMIPS.java
+	   src/pc/DrMIPS/src/brunonova/drmips/pc/DrMIPS.java
