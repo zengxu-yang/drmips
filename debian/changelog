@@ -1,9 +1,14 @@
 drmips (2.0.0-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/control:
+    - Added junit4 to Build-Depends.
+    - Changed java6-jdk to java7-jdk in Build-Depends.
+    - Changed java6-runtime to java7-runtime in Depends.
+  * debian/menu: file removed as it's now obsolete.
   * debian/rules: update path in override_dh_clean target.
 
- -- Bruno Nova <brunomb.nova@gmail.com>  Sun, 22 Nov 2015 21:19:07 +0000
+ -- Bruno Nova <brunomb.nova@gmail.com>  Sun, 22 Nov 2015 22:59:21 +0000
 
 drmips (1.3.2-1) unstable; urgency=low
 
