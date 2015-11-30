@@ -1,3 +1,14 @@
+drmips (2.0.1-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * d/control: removed texlive* from Build-Depends.
+  * d/copyright: removed license of cmake/Modules/UseLATEX.cmake.
+  * d/doc-base: merged the d/doc-base.* files into a single file, and update
+    it.
+  * d/doc-base.*: files removed.
+
+ -- Bruno Nova <brunomb.nova@gmail.com>  Mon, 30 Nov 2015 16:52:43 +0000
+
 drmips (2.0.0-1) unstable; urgency=low
 
   * New upstream release.
