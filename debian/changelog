@@ -1,4 +1,4 @@
-drmips (2.0.1-1) UNRELEASED; urgency=low
+drmips (2.0.1-1) unstable; urgency=low
 
   * New upstream release.
   * d/control: removed texlive* from Build-Depends.
@@ -7,7 +7,7 @@ drmips (2.0.1-1) UNRELEASED; urgency=low
     it.
   * d/doc-base.*: files removed.
 
- -- Bruno Nova <brunomb.nova@gmail.com>  Mon, 30 Nov 2015 16:52:43 +0000
+ -- Bruno Nova <brunomb.nova@gmail.com>  Mon, 30 Nov 2015 21:43:00 +0000
 
 drmips (2.0.0-1) unstable; urgency=low
 
