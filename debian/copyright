@@ -21,11 +21,6 @@ Files: cmake/Modules/UseJavaClassFilelist.cmake cmake/Modules/UseJavaSymlinks.cm
 Copyright: 2010-2011 Andreas schneider <asn@redhat.com>
 License: BSD-3-Clause
 
-Files: cmake/Modules/UseLATEX.cmake
-Copyright: 2004 Sandia Corporation, by Kenneth Moreland <kmorel@sandia.gov>
-Comment: version 1.10.4
-License: Contract_DE-AC04-94AL85000
-
 Files: debian/*
 Copyright: 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
 License: GPL-3.0+
@@ -104,14 +99,6 @@ License: BSD-3-Clause
  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-License: Contract_DE-AC04-94AL85000
- Under the terms of Contract DE-AC04-94AL85000, there is a non-exclusive
- license for use of this work by or on behalf of the U.S. Government.
- .
- Redistribution and use in source and binary forms, with
- or without modification, are permitted provided that this Notice and any
- statement of authorship are reproduced on all copies.
 
 License: GPL-2.0+
  This package is free software; you can redistribute it and/or modify
