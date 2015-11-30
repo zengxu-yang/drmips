@@ -1,9 +1,0 @@
-Document: drmips-user-manual
-Title: DrMIPS - User Manual
-Author: Bruno Nova
-Abstract: This short manual describes how to use the DrMIPS simulator.
- It is available in multiple languages.
-Section: Education
-
-Format: PDF
-Files: /usr/share/doc/drmips/manuals/manual-en.pdf.gz /usr/share/doc/drmips/manuals/manual-pt.pdf.gz

@@ -1,0 +1,14 @@
+Document: drmips
+Title: DrMIPS - Documentation
+Author: Bruno Nova
+Abstract: The documentation includes two manuals.
+ The User Manual describes how to use the DrMIPS simulator.
+ The Configuration Manual explains the syntax of the files that the DrMIPS
+ simulator uses to represent the different versions of the MIPS CPU and the
+ instruction sets used by them.
+ The documentation is available in multiple languages.
+Section: Education
+
+Format: HTML
+Index: /usr/share/doc/drmips/manuals/index.html
+Files: /usr/share/doc/drmips/manuals/*
