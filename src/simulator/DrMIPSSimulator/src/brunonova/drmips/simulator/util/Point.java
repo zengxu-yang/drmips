@@ -21,6 +21,8 @@ package brunonova.drmips.simulator.util;
 /**
  * Simple abstraction that saves some coordinates in a 2D space.
  *
+ * <p>The coordinates should be non-negative.</p>
+ *
  * @author Bruno Nova
  */
 public final class Point {
@@ -51,18 +53,18 @@ public final class Point {
 
 	/**
 	 * Updates the X coordinate.
-	 * @param x New value.
+	 * @param x New value (>= 0).
 	 */
 	public void setX(int x) {
-		this.x = x;
+		this.x = Math.max(x, 0);
 	}
 
 	/**
 	 * Updates the y coordinate.
-	 * @param y New value.
+	 * @param y New value (>= 0).
 	 */
 	public void setY(int y) {
-		this.y = y;
+		this.y = Math.max(y, 0);
 	}
 
 	/**
