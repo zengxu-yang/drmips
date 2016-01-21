@@ -195,7 +195,7 @@ public class RegBank extends Component implements Synchronous {
 	 * @throws ArrayIndexOutOfBoundsException If the index is invalid.
 	 */
 	public final Data getRegister(int index) throws ArrayIndexOutOfBoundsException {
-		return registers[index].clone();
+		return new Data(registers[index]);
 	}
 
 	/**

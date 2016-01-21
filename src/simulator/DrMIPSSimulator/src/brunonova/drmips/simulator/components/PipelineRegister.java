@@ -160,7 +160,7 @@ public class PipelineRegister extends Component implements Synchronous {
 	private Map<String, Data> cloneRegisters() {
 		Map<String, Data> map = new HashMap<>();
 		for(Map.Entry<String, Data> e: registers.entrySet())
-			map.put(e.getKey(), e.getValue().clone());
+			map.put(e.getKey(), new Data(e.getValue()));
 		return map;
 	}
 
