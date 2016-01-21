@@ -25,7 +25,8 @@ import org.junit.runners.Suite;
  * This test suite runs all of the tests of the simulator.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({brunonova.drmips.simulator.components.TestSuite.class})
+@Suite.SuiteClasses({brunonova.drmips.simulator.components.TestSuite.class,
+                     brunonova.drmips.simulator.util.DimensionAndPointTest.class})
 public class TestSuite {
 
 }
