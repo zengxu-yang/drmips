@@ -105,8 +105,8 @@ public class Datapath extends RelativeLayout implements View.OnClickListener, Vi
 		
 		// Set the size of the view
 		Dimension size = cpu.getSize();
-		setMinimumWidth(DrMIPS.getApplication().dipToPx(size.width));
-		setMinimumHeight(DrMIPS.getApplication().dipToPx(size.height));
+		setMinimumWidth(DrMIPS.getApplication().dipToPx(size.getWidth()));
+		setMinimumHeight(DrMIPS.getApplication().dipToPx(size.getHeight()));
 	}
 	
 	/**
@@ -258,13 +258,13 @@ public class Datapath extends RelativeLayout implements View.OnClickListener, Vi
 			Component outComp = out.getComponent();
 			if(!(outComp instanceof Fork || outComp instanceof Concatenator ||
 				outComp instanceof Distributor || outComp instanceof Constant)) {
-				addView(outTip = new IOPortTip(getContext(), out.getId(), "0", start.x, start.y));
+				addView(outTip = new IOPortTip(getContext(), out.getId(), "0", start.getX(), start.getY()));
 			}
 			if(out.isConnected()) {
 				Component inComp = out.getConnectedInput().getComponent();
 				if(!(inComp instanceof Fork || inComp instanceof Concatenator ||
 					inComp instanceof Distributor || inComp instanceof Constant)) {
-					addView(inTip = new IOPortTip(getContext(), out.getConnectedInput().getId(), "0", end.x, end.y));
+					addView(inTip = new IOPortTip(getContext(), out.getConnectedInput().getId(), "0", end.getX(), end.getY()));
 				}
 			}
 		}
@@ -305,12 +305,12 @@ public class Datapath extends RelativeLayout implements View.OnClickListener, Vi
 				Point s = start;
 				DrMIPS app = DrMIPS.getApplication();
 				for(Point e: points) {
-					canvas.drawLine(app.dipToPx(s.x), app.dipToPx(s.y), app.dipToPx(e.x), app.dipToPx(e.y), paint);
+					canvas.drawLine(app.dipToPx(s.getX()), app.dipToPx(s.getY()), app.dipToPx(e.getX()), app.dipToPx(e.getY()), paint);
 					s = e;
 				}
-				canvas.drawLine(app.dipToPx(s.x), app.dipToPx(s.y), app.dipToPx(end.x), app.dipToPx(end.y), paint);
+				canvas.drawLine(app.dipToPx(s.getX()), app.dipToPx(s.getY()), app.dipToPx(end.getX()), app.dipToPx(end.getY()), paint);
 				if(showArrows)
-					drawArrowTip(canvas, app.dipToPx(s.x), app.dipToPx(s.y), app.dipToPx(end.x), app.dipToPx(end.y), app.dipToPx(6));
+					drawArrowTip(canvas, app.dipToPx(s.getX()), app.dipToPx(s.getY()), app.dipToPx(end.getX()), app.dipToPx(end.getY()), app.dipToPx(6));
 			}
 		}
 		

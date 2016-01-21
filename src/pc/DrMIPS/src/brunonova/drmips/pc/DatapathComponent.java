@@ -102,10 +102,10 @@ public final class DatapathComponent extends JLabel implements MouseListener {
 	 * Also scales the font.
 	 */
 	protected final void setLocationAndSizeScaled() {
-		setLocation((int)(component.getPosition().x * datapath.getScale()),
-		            (int)(component.getPosition().y * datapath.getScale()));
-		setSize((int)(component.getSize().width * datapath.getScale()),
-		        (int)(component.getSize().height * datapath.getScale()));
+		setLocation((int)(component.getPosition().getX() * datapath.getScale()),
+		            (int)(component.getPosition().getY() * datapath.getScale()));
+		setSize((int)(component.getSize().getWidth() * datapath.getScale()),
+		        (int)(component.getSize().getHeight() * datapath.getScale()));
 		setFont(getFont().deriveFont(FONT.getSize2D() * (float)datapath.getScale()));
 	}
 

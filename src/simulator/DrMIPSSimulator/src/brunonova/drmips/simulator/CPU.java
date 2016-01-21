@@ -528,8 +528,8 @@ public class CPU {
 
 		for(Component c: getComponents()) { // check each component's position + size and output wires points
 			// Component's position + size
-			x = c.getPosition().x + c.getSize().width;
-			y = c.getPosition().y + c.getSize().height;
+			x = c.getPosition().getX() + c.getSize().getWidth();
+			y = c.getPosition().getY() + c.getSize().getHeight();
 			if(x > width) width = x;
 			if(y > height) height = y;
 
@@ -538,20 +538,20 @@ public class CPU {
 				if(o.isConnected()) {
 					o.getPosition();
 					if(o.getPosition() != null) { // start point
-						x = o.getPosition().x;
-						y = o.getPosition().y;
+						x = o.getPosition().getX();
+						y = o.getPosition().getY();
 						if(x > width) width = x;
 						if(y > height) height = y;
 					}
 					if(o.getConnectedInput().getPosition() != null) { // end point
-						x = o.getConnectedInput().getPosition().x;
-						y = o.getConnectedInput().getPosition().y;
+						x = o.getConnectedInput().getPosition().getX();
+						y = o.getConnectedInput().getPosition().getY();
 						if(x > width) width = x;
 						if(y > height) height = y;
 					}
 					for(Point p: o.getIntermediatePoints()) { // intermediate points
-						if(p.x > width) width = p.x;
-						if(p.y > height) height = p.y;
+						if(p.getX() > width) width = p.getX();
+						if(p.getY() > height) height = p.getY();
 					}
 				}
 			}

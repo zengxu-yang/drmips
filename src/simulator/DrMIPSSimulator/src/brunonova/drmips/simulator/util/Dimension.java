@@ -20,20 +20,16 @@ package brunonova.drmips.simulator.util;
 
 /**
  * Simple abstraction that saves the size of a 2D object.
- * 
+ *
  * @author Bruno Nova
  */
 public final class Dimension {
-	/** The width. */
-	public int width = 0;
-	/** The height. */
-	public int height = 0;
+	private int width = 0, height = 0;
 
 	/**
 	 * Creates a dimension with no size.
 	 */
-	public Dimension() {
-	}
+	public Dimension() { }
 
 	/**
 	 * Creates a copy of the given dimension.
@@ -42,7 +38,7 @@ public final class Dimension {
 	public Dimension(Dimension d) {
 		this(d.width, d.height);
 	}
-	
+
 	/**
 	 * Creates a dimension with the given parameters.
 	 * @param width The width.
@@ -52,21 +48,21 @@ public final class Dimension {
 		setWidth(width);
 		setHeight(height);
 	}
-	
+
 	/**
 	 * Updates the width.
-	 * @param width New value.
+	 * @param width New value (>= 0).
 	 */
 	public void setWidth(int width) {
-		this.width = (width >= 0) ? width : 0;
+		this.width = Math.max(width, 0); // ensure witdh >= 0
 	}
 
 	/**
 	 * Updates the height.
-	 * @param height  New value.
+	 * @param height New value (>= 0).
 	 */
 	public void setHeight(int height) {
-		this.height = (height >= 0) ? height : 0;
+		this.height = Math.max(height, 0); // ensure height >= 0
 	}
 
 	/**
@@ -95,9 +91,9 @@ public final class Dimension {
 		if(obj instanceof Dimension){
 			Dimension d = (Dimension)obj;
 			return width == d.width && height == d.height;
-		}
-		else
+		} else {
 			return false;
+		}
 	}
 
 	@Override

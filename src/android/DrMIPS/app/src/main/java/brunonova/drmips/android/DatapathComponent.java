@@ -52,9 +52,9 @@ public class DatapathComponent extends TextView {
 		this.component = component;
 		DrMIPS app = DrMIPS.getApplication();
 		
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(app.dipToPx(component.getSize().width), app.dipToPx(component.getSize().height));
-		params.topMargin = app.dipToPx(component.getPosition().y);
-		params.leftMargin = app.dipToPx(component.getPosition().x);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(app.dipToPx(component.getSize().getWidth()), app.dipToPx(component.getSize().getHeight()));
+		params.topMargin = app.dipToPx(component.getPosition().getY());
+		params.leftMargin = app.dipToPx(component.getPosition().getX());
 		setLayoutParams(params);
 		
 		setGravity(Gravity.CENTER);

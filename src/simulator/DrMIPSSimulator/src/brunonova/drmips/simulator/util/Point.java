@@ -20,21 +20,17 @@ package brunonova.drmips.simulator.util;
 
 /**
  * Simple abstraction that saves some coordinates in a 2D space.
- * 
+ *
  * @author Bruno Nova
  */
 public final class Point {
-	/** X coordinate. */
-	public int x = 0;
-	/** Y coordinate. */
-	public int y = 0;
+	private int x = 0, y = 0;
 
 	/**
 	 * Creates a point with the coordinates (0,0).
 	 */
-	public Point() {
-	}
-	
+	public Point() { }
+
 	/**
 	 * Creates a copy of the given point.
 	 * @param p The point to copy from.
@@ -42,7 +38,7 @@ public final class Point {
 	public Point(Point p) {
 		this(p.x, p.y);
 	}
-	
+
 	/**
 	 * Creates a point with the given coordinates.
 	 * @param x X coordinate.
@@ -95,9 +91,9 @@ public final class Point {
 		if(obj instanceof Point){
 			Point p = (Point)obj;
 			return x == p.x && y == p.y;
-		}
-		else
+		} else {
 			return false;
+		}
 	}
 
 	@Override

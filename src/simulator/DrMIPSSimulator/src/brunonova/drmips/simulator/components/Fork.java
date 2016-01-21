@@ -57,7 +57,7 @@ public class Fork extends Component {
 		}
 
 		// Adjust the position
-		setPosition(new Point(getPosition().x - 2, getPosition().y - 2));
+		setPosition(new Point(getPosition().getX() - 2, getPosition().getY() - 2));
 	}
 
 	@Override

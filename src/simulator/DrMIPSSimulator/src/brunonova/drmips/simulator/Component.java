@@ -631,14 +631,14 @@ public abstract class Component {
 		List<IOPort> ports = getIOPortsInDirection(port.getDirection()); // inputs/outputs in that direction
 		int index = ports.indexOf(port); // index of the input/output in that direction<<<
 		int numPorts = ports.size(); // number of inputs/outputs in that direction
-		int length = (port.getDirection() == IOPort.Direction.WEST || port.getDirection() == IOPort.Direction.EAST) ? getSize().height : getSize().width; // width/height of the component, depending on the direction
+		int length = (port.getDirection() == IOPort.Direction.WEST || port.getDirection() == IOPort.Direction.EAST) ? getSize().getHeight() : getSize().getWidth(); // width/height of the component, depending on the direction
 		int dPos = length / (numPorts + 1) * (index + 1); // the additional x/y of the input/output
 
 		switch(port.getDirection()) {
-			case NORTH:       pos = new Point(getPosition().x + dPos,   getPosition().y); break;
-			case SOUTH:       pos = new Point(getPosition().x + dPos,   getPosition().y + getSize().height); break;
-			case WEST:        pos = new Point(getPosition().x,          getPosition().y + dPos); break;
-			default /*EAST*/: pos = new Point(getPosition().x + getSize().width, getPosition().y + dPos); break;
+			case NORTH:       pos = new Point(getPosition().getX() + dPos,   getPosition().getY()); break;
+			case SOUTH:       pos = new Point(getPosition().getX() + dPos,   getPosition().getY() + getSize().getHeight()); break;
+			case WEST:        pos = new Point(getPosition().getX(),          getPosition().getY() + dPos); break;
+			default /*EAST*/: pos = new Point(getPosition().getX() + getSize().getWidth(), getPosition().getY() + dPos); break;
 		}
 
 		port.setPosition(pos);
