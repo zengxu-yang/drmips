@@ -1,3 +1,10 @@
+drmips (2.0.1-2) unstable; urgency=low
+
+  * Depend on default-jre and Build-Depend on default-jdk, instead of
+    on a specific version of openjdk (Closes: #814161).
+
+ -- Bruno Nova <brunomb.nova@gmail.com>  Thu, 11 Feb 2016 12:28:03 +0000
+
 drmips (2.0.1-1) unstable; urgency=low
 
   * New upstream release.
