@@ -2039,7 +2039,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 			tabAssembledCode.setTitle(Lang.t("assembled"));
 			tabDataMemory.setTitle(Lang.t("data_memory"));
 		}
-		cpuFileChooser = new JFileChooser(DrMIPS.path + File.separator + CPU.FILENAME_PATH);
+		cpuFileChooser = new JFileChooser(DrMIPS.getPath() + File.separator + CPU.FILENAME_PATH);
 		cpuFileChooser.setDialogTitle(Lang.t("load_cpu_from_file"));
 		cpuFileChooser.setFileFilter(new FileNameExtensionFilter(Lang.t("cpu_files"), CPU.FILENAME_EXTENSION));
 		codeFileChooser = new JFileChooser();
@@ -2663,7 +2663,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Opens the documentation directory.
 	 */
 	public void openDocDir() {
-		File docDir = new File(DrMIPS.path + File.separator + DrMIPS.DOC_DIR);
+		File docDir = new File(DrMIPS.getPath() + File.separator + DrMIPS.DOC_DIR);
 		File docDir2 = new File(DrMIPS.DOC_DIR2);
 		File dir;
 

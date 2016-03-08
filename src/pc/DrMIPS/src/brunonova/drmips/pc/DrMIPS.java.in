@@ -53,8 +53,6 @@ public class DrMIPS {
 	public static final int TOOLTIP_DISMISS_DELAY = 30000;
 	/** Reference to the user preferences. */
 	public static final Preferences prefs = Preferences.userNodeForPackage(DrMIPS.class);
-	/** The full path to the program's jar folder, or '.' if not running from a jar (when running from the IDE, for example). */
-	public static String path = ".";
 	/** The CPU file loaded by default. */
 	public static final String DEFAULT_CPU = "cpu" + File.separator + "unicycle.cpu";
 	/** Relative path to the documentation directory. */
@@ -126,14 +124,23 @@ public class DrMIPS {
 	public static final boolean DEFAULT_AUTO_SCALE = false;
 	public static final boolean DEFAULT_OPENGL = false;
 
-	/** "Loading" dialog. */
 	private static DlgLoading dlgLoading = null;
-	/** Main window. */
 	private static FrmSimulator frmSim = null;
-	/** Optional filename to open. */
-	private static String filename = null;
-	/** Class logger. */
+	private static String filename = null;  // optional filename to open
 	private static final Logger LOG = Logger.getLogger(DrMIPS.class.getName());
+	private static String path = null;  // cached path to jar file
+
+	/**
+	 * Returns the full path to the program's jar folder.
+	 *
+	 * <p>If not running from a jar (when running from the IDE, for example),
+	 * '.' will be returned.
+	 * @return full path to the jar folder.
+	 */
+	public static String getPath() {
+		if(path == null) findPath();  // first time called -> find jar path
+		return path;
+	}
 
 	/**
 	 * Returns the path to the default CPU.
@@ -141,6 +148,32 @@ public class DrMIPS {
 	 */
 	public static String getDefaultCPUPath() {
 		return path + File.separator + DEFAULT_CPU;
+	}
+
+	private static void findPath() {
+		path = ".";
+
+		try {
+			// Get the path to the jar (if running from a jar)
+			URI uri = DrMIPS.class.getProtectionDomain().getCodeSource()
+			                .getLocation().toURI();
+
+			// URI to String (careful with Windows network (UNC) paths)
+			String p = uri.toString();
+			p = p.startsWith("file://") ? p.substring(5) : uri.getPath();
+
+			// If running from a jar, get the path of the parent dir
+			if(p.toLowerCase().endsWith(".jar")) {
+				File f = (new File(p)).getParentFile();
+				if(f != null) path = f.getCanonicalPath();
+				LOG.log(Level.INFO, "running from jar file; path to jar folder: {0}",
+				        path);
+			} else {
+				LOG.info("not running from jar file");
+			}
+		} catch (Exception ex) {
+			LOG.log(Level.WARNING, "error finding the path of the program", ex);
+		}
 	}
 
 	private static void displayHelpAndExit(OptionParser parser) {
@@ -227,22 +260,6 @@ public class DrMIPS {
 		// Try to enable OpenGL hardware acceleration, unless requested not to
 		if(useOpenGl)
 			enableOpenGl();
-
-		// Find the path to the program
-		try {
-			URI uri = DrMIPS.class.getProtectionDomain().getCodeSource().getLocation().toURI(); // get the path to the jar (if running from a jar)
-			String p = uri.toString();
-			p = p.startsWith("file://") ? p.substring(5) : uri.getPath(); // uri to String (careful with Windows network (UNC) paths)
-			if(p.toLowerCase().endsWith(".jar")) { // if running from a jar, get the path of the parent dir
-				File f = (new File(p)).getParentFile();
-				if(f != null) path = f.getCanonicalPath();
-				LOG.log(Level.INFO, "running from jar file; path to jar folder: {0}", path);
-			}
-			else
-				LOG.info("not running from jar file");
-		} catch (Exception ex) {
-			LOG.log(Level.WARNING, "error finding the path of the program", ex);
-		}
 
 		// Start the GUI
 		SwingUtilities.invokeLater(new StartGUIRunnable());

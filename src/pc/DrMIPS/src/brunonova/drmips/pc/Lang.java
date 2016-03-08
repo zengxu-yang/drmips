@@ -85,7 +85,7 @@ public class Lang {
 	 */
 	public static void load(String language) throws Exception {
 		if(loader == null) {
-			File file = new File(DrMIPS.path + File.separator + FILENAME_PATH);
+			File file = new File(DrMIPS.getPath() + File.separator + FILENAME_PATH);
 			URL[] urls = new URL[] {file.toURI().toURL()};
 			loader = new URLClassLoader(urls);
 			setDefaultLanguage(DEFAULT_LANGUAGE); // set default language
@@ -402,7 +402,7 @@ public class Lang {
 		availableLanguages.add(DEFAULT_LANGUAGE); // add default language
 
 		// Find all the language files
-		File langDir = new File(DrMIPS.path + File.separator + FILENAME_PATH);
+		File langDir = new File(DrMIPS.getPath() + File.separator + FILENAME_PATH);
 		if(langDir.isDirectory()) {
 			File[] files = langDir.listFiles();
 			String name, lang;
