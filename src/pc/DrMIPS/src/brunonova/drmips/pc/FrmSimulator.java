@@ -1,6 +1,6 @@
 /*
     DrMIPS - Educational MIPS simulator
-    Copyright (C) 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
+    Copyright (C) 2013-2016 Bruno Nova <brunomb.nova@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,7 +36,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,11 +60,7 @@ import org.fife.ui.rtextarea.SearchEngine;
 import org.jscroll.widgets.JScrollInternalFrame;
 import org.json.JSONException;
 
-/**
- * Main simulator window.
- *
- * @author Bruno Nova
- */
+/** Main simulator window. */
 public class FrmSimulator extends javax.swing.JFrame {
 	/** The currently loaded CPU. */
 	public CPU cpu = null;
@@ -2240,7 +2235,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 		setSimulationControlsEnabled(false);
 		cpu = CPU.createFromJSONFile(path); // load CPU from file
 		cpu.setPerformanceInstructionDependent(cmbDatapathPerformance.getSelectedIndex() == Util.INSTRUCTION_PERFORMANCE_TYPE_INDEX);
-		DrMIPS.prefs.put(DrMIPS.LAST_CPU_PREF, path); // save CPU path in preferences
+		DrMIPS.prefs.put("last_cpu", path); // save CPU path in preferences
 		tblRegisters.setCPU(cpu, datapath, tblExec, cmbRegFormat.getSelectedIndex()); // display the CPU's register table
 		datapath.setCPU(cpu); // display datapath in the respective tab
 		tblAssembledCode.setCPU(cpu, cmbAssembledCodeFormat.getSelectedIndex()); // display assembled code in the respective tab
@@ -2261,19 +2256,23 @@ public class FrmSimulator extends javax.swing.JFrame {
 		}
 	}
 
-	/**
-	 * Loads the last used CPU file or the default one.
-	 */
+	/** Loads the last used CPU file or the default one. */
 	@SuppressWarnings("UseSpecificCatch")
 	private void loadFirstCPU() {
-		try { // try to load the CPU in the preferences
-			loadCPU(DrMIPS.prefs.get(DrMIPS.LAST_CPU_PREF, DrMIPS.path + File.separator + DrMIPS.DEFAULT_CPU));
+		try {
+			// Try to load the CPU in the preferences
+			loadCPU(DrMIPS.prefs.get("last_cpu", DrMIPS.getDefaultCPUPath()));
 		} catch (Throwable ex) {
-			try { // fallback to the default CPU on error
-				loadCPU(DrMIPS.path + File.separator + DrMIPS.DEFAULT_CPU);
-				DrMIPS.prefs.put(DrMIPS.LAST_CPU_PREF, DrMIPS.path + File.separator + DrMIPS.DEFAULT_CPU);
-			} catch (Throwable e) { // error on the default CPU too
-				JOptionPane.showMessageDialog(this, Lang.t("invalid_file") + "\n" + ex.getClass().getName() + " (" + ex.getMessage() + ")", AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
+			try {
+				// Fallback to the default CPU on error
+				loadCPU(DrMIPS.getDefaultCPUPath());
+				DrMIPS.prefs.put("last_cpu", DrMIPS.getDefaultCPUPath());
+			} catch (Throwable e) {
+				// Error on the default CPU too
+				String msg = Lang.t("invalid_file") + "\n" + ex.getClass().getName()
+				             + " (" + ex.getMessage() + ")";
+				JOptionPane.showMessageDialog(this, msg, AppInfo.NAME,
+				                              JOptionPane.ERROR_MESSAGE);
 				LOG.log(Level.SEVERE, "error loading CPU", e);
 				System.exit(2);
 			}
@@ -3034,10 +3033,9 @@ public class FrmSimulator extends javax.swing.JFrame {
 			if(!lang.equals(Lang.getLanguage())) {
 				try {
 					Lang.load(lang);
-					DrMIPS.prefs.put(DrMIPS.LANG_PREF, lang);
+					DrMIPS.prefs.put("lang", lang);
 					translate();
-				}
-				catch(Exception ex) {
+				} catch(Exception ex) {
 					JOptionPane.showMessageDialog(null, "Error opening language file " + Lang.getLanguage() + "!\n" + ex.getMessage(), AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
 					LOG.log(Level.WARNING, "error opening language file \"" + lang + "\"", ex);
 				}
