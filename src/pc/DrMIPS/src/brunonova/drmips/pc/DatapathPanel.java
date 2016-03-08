@@ -1,6 +1,6 @@
 /*
     DrMIPS - Educational MIPS simulator
-    Copyright (C) 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
+    Copyright (C) 2013-2016 Bruno Nova <brunomb.nova@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,11 +31,7 @@ import java.util.TreeMap;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
-/**
- * Special JPanel that handles the display of the CPU datapath.
- *
- * @author Bruno Nova
- */
+/** Special JPanel that handles the display of the CPU datapath. */
 public class DatapathPanel extends JLayeredPane {
 	/** Minimum scale/zoom level allowed. */
 	public static final double SCALE_MINIMUM = 1.0;
@@ -74,7 +70,7 @@ public class DatapathPanel extends JLayeredPane {
 	 */
 	public DatapathPanel() {
 		super();
-		scale = DrMIPS.prefs.getDouble(DrMIPS.SCALE_PREF, DrMIPS.DEFAULT_SCALE);
+		scale = DrMIPS.prefs.getDouble("scale", DrMIPS.DEFAULT_SCALE);
 	}
 
 	/**
@@ -359,12 +355,13 @@ public class DatapathPanel extends JLayeredPane {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		boolean dark = DrMIPS.prefs.getBoolean(DrMIPS.DARK_THEME_PREF, DrMIPS.DEFAULT_DARK_THEME);
+		boolean dark = DrMIPS.prefs.getBoolean("dark_theme", DrMIPS.DEFAULT_DARK_THEME);
 
 		// Draw the wires
 		if(wires != null) {
-			for(Wire w: wires)
+			for(Wire w: wires) {
 				w.paint(g, dark);
+			}
 		}
 	}
 

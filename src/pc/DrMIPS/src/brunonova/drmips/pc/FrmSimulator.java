@@ -116,13 +116,14 @@ public class FrmSimulator extends javax.swing.JFrame {
 	public FrmSimulator() {
 		obtainIcons();
 		initComponents();
-		setSize(DrMIPS.prefs.getInt(DrMIPS.WIDTH_PREF, DrMIPS.DEFAULT_WIDTH),
-		        DrMIPS.prefs.getInt(DrMIPS.HEIGHT_PREF, DrMIPS.DEFAULT_HEIGHT));
+		setSize(DrMIPS.prefs.getInt("width", DrMIPS.DEFAULT_WIDTH),
+		        DrMIPS.prefs.getInt("height", DrMIPS.DEFAULT_HEIGHT));
 		if(DrMIPS.prefs.getBoolean("maximized", DrMIPS.DEFAULT_MAXIMIZED))
 			setExtendedState(MAXIMIZED_BOTH);
 		datapath.setParent(this);
-		if(DrMIPS.prefs.getInt(DrMIPS.DIVIDER_LOCATION_PREF, -1) != -1)
-			pnlSplit.setDividerLocation(DrMIPS.prefs.getInt(DrMIPS.DIVIDER_LOCATION_PREF, -1));
+		if(DrMIPS.prefs.getInt("div_location", -1) != -1) {
+			pnlSplit.setDividerLocation(DrMIPS.prefs.getInt("div_location", -1));
+		}
 		pnlCode.add((txtCode = new CodeEditor(mnuEditP)).getScrollPane());
 		dlgFindReplace = new DlgFindReplace(this);
 		dlgSupportedInstructions = new DlgSupportedInstructions(this);
@@ -137,36 +138,36 @@ public class FrmSimulator extends javax.swing.JFrame {
 		txtCode.addCaretListener(new CodeEditorCaretListener());
 		desktop.registerDefaultFrameIcon(new ImageIcon(getClass().getResource("/res/icons/x16/drmips.png")));
 
-		mnuOpenLastFileAtStartup.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.OPEN_LAST_FILE_AT_STARTUP_PREF, DrMIPS.DEFAULT_OPEN_LAST_FILE_AT_STARTUP));
-		mnuResetDataBeforeAssembling.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.ASSEMBLE_RESET_PREF, DrMIPS.DEFAULT_ASSEMBLE_RESET));
-		mnuSwitchTheme.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.DARK_THEME_PREF, DrMIPS.DEFAULT_DARK_THEME));
-		mnuInternalWindows.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.INTERNAL_WINDOWS_PREF, DrMIPS.DEFAULT_INTERNAL_WINDOWS));
+		mnuOpenLastFileAtStartup.setSelected(DrMIPS.prefs.getBoolean("open_last_file_at_startup", DrMIPS.DEFAULT_OPEN_LAST_FILE_AT_STARTUP));
+		mnuResetDataBeforeAssembling.setSelected(DrMIPS.prefs.getBoolean("assemble_reset", DrMIPS.DEFAULT_ASSEMBLE_RESET));
+		mnuSwitchTheme.setSelected(DrMIPS.prefs.getBoolean("dark_theme", DrMIPS.DEFAULT_DARK_THEME));
+		mnuInternalWindows.setSelected(DrMIPS.prefs.getBoolean("internal_windows", DrMIPS.DEFAULT_INTERNAL_WINDOWS));
 		if(mnuInternalWindows.isSelected()) switchToInternalWindows();
-		mnuMarginLine.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.MARGIN_LINE_PREF, DrMIPS.DEFAULT_MARGIN_LINE));
-		mnuOpenGL.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.OPENGL_PREF, DrMIPS.DEFAULT_OPENGL));
+		mnuMarginLine.setSelected(DrMIPS.prefs.getBoolean("margin_line", DrMIPS.DEFAULT_MARGIN_LINE));
+		mnuOpenGL.setSelected(DrMIPS.prefs.getBoolean("use_opengl", DrMIPS.DEFAULT_OPENGL));
 		txtCode.setMarginLineEnabled(mnuMarginLine.isSelected());
-		mnuControlPath.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.SHOW_CONTROL_PATH_PREF, DrMIPS.DEFAULT_SHOW_CONTROL_PATH));
+		mnuControlPath.setSelected(DrMIPS.prefs.getBoolean("show_control_path", DrMIPS.DEFAULT_SHOW_CONTROL_PATH));
 		datapath.setControlPathVisible(mnuControlPath.isSelected());
-		mnuArrowsInWires.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.SHOW_ARROWS_PREF, DrMIPS.DEFAULT_SHOW_ARROWS));
+		mnuArrowsInWires.setSelected(DrMIPS.prefs.getBoolean("show_arrows", DrMIPS.DEFAULT_SHOW_ARROWS));
 		datapath.setShowArrows(mnuArrowsInWires.isSelected());
-		mnuPerformanceMode.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.PERFORMANCE_MODE_PREF, DrMIPS.DEFAULT_PERFORMANCE_MODE));
+		mnuPerformanceMode.setSelected(DrMIPS.prefs.getBoolean("performance_mode", DrMIPS.DEFAULT_PERFORMANCE_MODE));
 		datapath.setPerformanceMode(mnuPerformanceMode.isSelected());
 		lblDatapathDataFormat.setVisible(!mnuPerformanceMode.isSelected());
 		cmbDatapathDataFormat.setVisible(!mnuPerformanceMode.isSelected());
 		lblDatapathPerformance.setVisible(mnuPerformanceMode.isSelected());
 		cmbDatapathPerformance.setVisible(mnuPerformanceMode.isSelected());
-		mnuOverlayedData.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.OVERLAYED_DATA_PREF, DrMIPS.DEFAULT_OVERLAYED_DATA));
+		mnuOverlayedData.setSelected(DrMIPS.prefs.getBoolean("overlayed_data", DrMIPS.DEFAULT_OVERLAYED_DATA));
 		datapath.setShowTips(mnuOverlayedData.isSelected());
 		mnuOverlayedShowNames.setEnabled(mnuOverlayedData.isSelected());
-		mnuOverlayedShowNames.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.OVERLAYED_SHOW_NAMES_PREF, DrMIPS.DEFAULT_OVERLAYED_SHOW_NAMES));
+		mnuOverlayedShowNames.setSelected(DrMIPS.prefs.getBoolean("overlayed_show_names", DrMIPS.DEFAULT_OVERLAYED_SHOW_NAMES));
 		datapath.setShowTipsNames(mnuOverlayedShowNames.isSelected());
 		mnuOverlayedShowForAll.setEnabled(mnuOverlayedData.isSelected());
-		mnuOverlayedShowForAll.setSelected(DrMIPS.prefs.getBoolean(DrMIPS.OVERLAYED_SHOW_FOR_ALL_PREF, DrMIPS.DEFAULT_OVERLAYED_SHOW_FOR_ALL));
+		mnuOverlayedShowForAll.setSelected(DrMIPS.prefs.getBoolean("overlayed_show_for_all", DrMIPS.DEFAULT_OVERLAYED_SHOW_FOR_ALL));
 		datapath.setShowTipsForAllComps(mnuOverlayedShowForAll.isSelected());
 		mnuRemoveLatencies.setEnabled(mnuPerformanceMode.isSelected());
 		mnuRestoreLatencies.setEnabled(mnuPerformanceMode.isSelected());
 		refreshDatapathHelp();
-		switchZoomAuto(DrMIPS.prefs.getBoolean(DrMIPS.AUTO_SCALE_PREF, DrMIPS.DEFAULT_AUTO_SCALE));
+		switchZoomAuto(DrMIPS.prefs.getBoolean("auto_scale", DrMIPS.DEFAULT_AUTO_SCALE));
 		updateZoomStatus();
 	}
 
@@ -1483,17 +1484,19 @@ public class FrmSimulator extends javax.swing.JFrame {
 
     private void mnuSwitchSideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSwitchSideActionPerformed
 		// Save side on preferences
-		int newSide = (selectedTab.getSide() == Util.LEFT) ? Util.RIGHT : Util.LEFT;
-		if(selectedTab == tabCode)
-			DrMIPS.prefs.putInt(DrMIPS.CODE_TAB_SIDE_PREF, newSide);
-		else if(selectedTab == tabDatapath)
-			DrMIPS.prefs.putInt(DrMIPS.DATAPATH_TAB_SIDE_PREF, newSide);
-		else if(selectedTab == tabRegisters)
-			DrMIPS.prefs.putInt(DrMIPS.REGISTERS_TAB_SIDE_PREF, newSide);
-		else if(selectedTab == tabAssembledCode)
-			DrMIPS.prefs.putInt(DrMIPS.ASSEMBLED_CODE_TAB_SIDE_PREF, newSide);
-		else if(selectedTab == tabDataMemory)
-			DrMIPS.prefs.putInt(DrMIPS.DATA_MEMORY_TAB_SIDE_PREF, newSide);
+		int newSide = selectedTab.getSide() == Util.LEFT ? Util.RIGHT : Util.LEFT;
+
+		if(selectedTab == tabCode) {
+			DrMIPS.prefs.putInt("code_tab_side", newSide);
+		} else if(selectedTab == tabDatapath) {
+			DrMIPS.prefs.putInt("datapath_tab_side", newSide);
+		} else if(selectedTab == tabRegisters) {
+			DrMIPS.prefs.putInt("reg_tab_side", newSide);
+		} else if(selectedTab == tabAssembledCode) {
+			DrMIPS.prefs.putInt("assembled_code_tab_side", newSide);
+		} else if(selectedTab == tabDataMemory) {
+			DrMIPS.prefs.putInt("data_mem_tab_side", newSide);
+		}
 
 		refreshTabSides(); // refresh tabs
     }//GEN-LAST:event_mnuSwitchSideActionPerformed
@@ -1508,12 +1511,12 @@ public class FrmSimulator extends javax.swing.JFrame {
 
     private void mnuControlPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuControlPathActionPerformed
 		datapath.setControlPathVisible(mnuControlPath.isSelected());
-		DrMIPS.prefs.putBoolean(DrMIPS.SHOW_CONTROL_PATH_PREF, mnuControlPath.isSelected());
+		DrMIPS.prefs.putBoolean("show_control_path", mnuControlPath.isSelected());
     }//GEN-LAST:event_mnuControlPathActionPerformed
 
     private void mnuArrowsInWiresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArrowsInWiresActionPerformed
 		datapath.setShowArrows(mnuArrowsInWires.isSelected());
-		DrMIPS.prefs.putBoolean(DrMIPS.SHOW_ARROWS_PREF, mnuArrowsInWires.isSelected());
+		DrMIPS.prefs.putBoolean("show_arrows", mnuArrowsInWires.isSelected());
     }//GEN-LAST:event_mnuArrowsInWiresActionPerformed
 
     private void mnuPerformanceModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPerformanceModeActionPerformed
@@ -1524,7 +1527,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 		cmbDatapathPerformance.setVisible(mnuPerformanceMode.isSelected());
 		mnuRemoveLatencies.setEnabled(mnuPerformanceMode.isSelected());
 		mnuRestoreLatencies.setEnabled(mnuPerformanceMode.isSelected());
-		DrMIPS.prefs.putBoolean(DrMIPS.PERFORMANCE_MODE_PREF, mnuPerformanceMode.isSelected());
+		DrMIPS.prefs.putBoolean("performance_mode", mnuPerformanceMode.isSelected());
 		refreshDatapathHelp();
     }//GEN-LAST:event_mnuPerformanceModeActionPerformed
 
@@ -1537,7 +1540,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 		datapath.setShowTips(mnuOverlayedData.isSelected());
 		mnuOverlayedShowNames.setEnabled(mnuOverlayedData.isSelected());
 		mnuOverlayedShowForAll.setEnabled(mnuOverlayedData.isSelected());
-		DrMIPS.prefs.putBoolean(DrMIPS.OVERLAYED_DATA_PREF, mnuOverlayedData.isSelected());
+		DrMIPS.prefs.putBoolean("overlayed_data", mnuOverlayedData.isSelected());
     }//GEN-LAST:event_mnuOverlayedDataActionPerformed
 
     private void cmdRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestartActionPerformed
@@ -1593,7 +1596,7 @@ public class FrmSimulator extends javax.swing.JFrame {
     private void mnuMarginLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMarginLineActionPerformed
 		txtCode.setMarginLineEnabled(mnuMarginLine.isSelected());
 		txtCode.repaint();
-		DrMIPS.prefs.putBoolean(DrMIPS.MARGIN_LINE_PREF, mnuMarginLine.isSelected());
+		DrMIPS.prefs.putBoolean("margin_line", mnuMarginLine.isSelected());
     }//GEN-LAST:event_mnuMarginLineActionPerformed
 
     private void mnuTileWindowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTileWindowsActionPerformed
@@ -1607,7 +1610,7 @@ public class FrmSimulator extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuCascadeWindowsActionPerformed
 
     private void mnuOpenLastFileAtStartupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenLastFileAtStartupActionPerformed
-		DrMIPS.prefs.putBoolean(DrMIPS.OPEN_LAST_FILE_AT_STARTUP_PREF, mnuOpenLastFileAtStartup.isSelected());
+		DrMIPS.prefs.putBoolean("open_last_file_at_startup", mnuOpenLastFileAtStartup.isSelected());
     }//GEN-LAST:event_mnuOpenLastFileAtStartupActionPerformed
 
     private void mnuZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuZoomInActionPerformed
@@ -1665,22 +1668,22 @@ public class FrmSimulator extends javax.swing.JFrame {
 
     private void mnuOverlayedShowNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOverlayedShowNamesActionPerformed
 		datapath.setShowTipsNames(mnuOverlayedShowNames.isSelected());
-		DrMIPS.prefs.putBoolean(DrMIPS.OVERLAYED_SHOW_NAMES_PREF, mnuOverlayedShowNames.isSelected());
+		DrMIPS.prefs.putBoolean("overlayed_show_names", mnuOverlayedShowNames.isSelected());
     }//GEN-LAST:event_mnuOverlayedShowNamesActionPerformed
 
     private void mnuOverlayedShowForAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOverlayedShowForAllActionPerformed
 		datapath.setShowTipsForAllComps(mnuOverlayedShowForAll.isSelected());
-		DrMIPS.prefs.putBoolean(DrMIPS.OVERLAYED_SHOW_FOR_ALL_PREF, mnuOverlayedShowForAll.isSelected());
+		DrMIPS.prefs.putBoolean("overlayed_show_for_all", mnuOverlayedShowForAll.isSelected());
     }//GEN-LAST:event_mnuOverlayedShowForAllActionPerformed
 
     private void mnuOpenGLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenGLActionPerformed
-		boolean useOpenGl = DrMIPS.prefs.getBoolean(DrMIPS.OPENGL_PREF, DrMIPS.DEFAULT_OPENGL);
+		boolean useOpenGl = DrMIPS.prefs.getBoolean("use_opengl", DrMIPS.DEFAULT_OPENGL);
 		int res;
 
 		if(!useOpenGl) {
 			res = JOptionPane.showConfirmDialog(this, Lang.t("enable_opengl_msg"), AppInfo.NAME, JOptionPane.OK_CANCEL_OPTION);
 			if(res == JOptionPane.OK_OPTION) {
-				DrMIPS.prefs.putBoolean(DrMIPS.OPENGL_PREF, true);
+				DrMIPS.prefs.putBoolean("use_opengl", true);
 				mnuOpenGL.setEnabled(false);
 			} else {
 				mnuOpenGL.setSelected(useOpenGl);
@@ -1688,7 +1691,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 		} else {
 			res = JOptionPane.showConfirmDialog(this, Lang.t("disable_opengl_msg"), AppInfo.NAME, JOptionPane.OK_CANCEL_OPTION);
 			if(res == JOptionPane.OK_OPTION) {
-				DrMIPS.prefs.putBoolean(DrMIPS.OPENGL_PREF, false);
+				DrMIPS.prefs.putBoolean("use_opengl", false);
 				mnuOpenGL.setEnabled(false);
 			} else {
 				mnuOpenGL.setSelected(useOpenGl);
@@ -1706,10 +1709,10 @@ public class FrmSimulator extends javax.swing.JFrame {
 		if(openFile != null) {
 			title = openFile.getName() + " (" + openFile.getAbsolutePath() + ") - " + title;
 			addRecentFile(file);
-			DrMIPS.prefs.put(DrMIPS.LAST_FILE_PREF, file.getAbsolutePath());
+			DrMIPS.prefs.put("last_file", file.getAbsolutePath());
 		}
 		else
-			DrMIPS.prefs.remove(DrMIPS.LAST_FILE_PREF);
+			DrMIPS.prefs.remove("last_file");
 		setTitle(title);
 	}
 
@@ -1718,7 +1721,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * @param file The file to add.
 	 */
 	private void addRecentFile(File file) {
-		addRecentFileToPrefs(file, DrMIPS.RECENT_FILES_PREF, DrMIPS.MAX_RECENT_FILES);
+		addRecentFileToPrefs(file, "recent", DrMIPS.MAX_RECENT_FILES);
 		updateRecentFiles();
 	}
 
@@ -1727,7 +1730,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * @param file The file to add.
 	 */
 	private void addRecentCPU(File file) {
-		addRecentFileToPrefs(file, DrMIPS.RECENT_CPUS_PREF, DrMIPS.MAX_RECENT_CPUS);
+		addRecentFileToPrefs(file, "recent_cpu", DrMIPS.MAX_RECENT_CPUS);
 		updateRecentCPUs();
 	}
 
@@ -1769,7 +1772,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 		JMenuItem menuItem;
 
 		for(int i = 0; i < DrMIPS.MAX_RECENT_FILES; i++) {
-			filename = DrMIPS.prefs.get(DrMIPS.RECENT_FILES_PREF + i, null);
+			filename = DrMIPS.prefs.get("recent" + i, null);
 			if(filename != null) {
 				file = new File(filename);
 				if(file.exists()) {
@@ -1791,7 +1794,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 		JMenuItem menuItem;
 
 		for(int i = 0; i < DrMIPS.MAX_RECENT_CPUS; i++) {
-			filename = DrMIPS.prefs.get(DrMIPS.RECENT_CPUS_PREF + i, null);
+			filename = DrMIPS.prefs.get("recent_cpu" + i, null);
 			if(filename != null) {
 				file = new File(filename);
 				if(file.exists()) {
@@ -2074,10 +2077,10 @@ public class FrmSimulator extends javax.swing.JFrame {
 		lblDataMemoryFormat.setText(Lang.t("format") + ":");
 		lblFile.setText(Lang.t("file") + ":");
 
-		initFormatComboBox(cmbRegFormat, DrMIPS.REGISTER_FORMAT_PREF, DrMIPS.DEFAULT_REGISTER_FORMAT);
-		initFormatComboBox(cmbDatapathDataFormat, DrMIPS.DATAPATH_DATA_FORMAT_PREF, DrMIPS.DEFAULT_DATAPATH_DATA_FORMAT);
-		initFormatComboBox(cmbAssembledCodeFormat, DrMIPS.ASSEMBLED_CODE_FORMAT_PREF, DrMIPS.DEFAULT_ASSEMBLED_CODE_FORMAT);
-		initFormatComboBox(cmbDataMemoryFormat, DrMIPS.DATA_MEMORY_FORMAT_PREF, DrMIPS.DEFAULT_DATA_MEMORY_FORMAT);
+		initFormatComboBox(cmbRegFormat, "reg_format", DrMIPS.DEFAULT_REGISTER_FORMAT);
+		initFormatComboBox(cmbDatapathDataFormat, "datapath_format", DrMIPS.DEFAULT_DATAPATH_DATA_FORMAT);
+		initFormatComboBox(cmbAssembledCodeFormat, "assembled_code_format", DrMIPS.DEFAULT_ASSEMBLED_CODE_FORMAT);
+		initFormatComboBox(cmbDataMemoryFormat, "data_memory_format", DrMIPS.DEFAULT_DATA_MEMORY_FORMAT);
 		initPerformanceComboBox();
 
 		datapath.translate(cmbDatapathDataFormat.getSelectedIndex());
@@ -2131,11 +2134,11 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 */
 	private void initPerformanceComboBox() {
 		if(cmbDatapathPerformance.getSelectedIndex() >= 0)
-			DrMIPS.prefs.putInt(DrMIPS.PERFORMANCE_TYPE_PREF, cmbDatapathPerformance.getSelectedIndex());
+			DrMIPS.prefs.putInt("performance_type", cmbDatapathPerformance.getSelectedIndex());
 		cmbDatapathPerformance.removeAllItems();
 		cmbDatapathPerformance.addItem(Lang.t("instruction"));
 		cmbDatapathPerformance.addItem(Lang.t("cpu"));
-		cmbDatapathPerformance.setSelectedIndex(DrMIPS.prefs.getInt(DrMIPS.PERFORMANCE_TYPE_PREF, DrMIPS.DEFAULT_PERFORMANCE_TYPE));
+		cmbDatapathPerformance.setSelectedIndex(DrMIPS.prefs.getInt("performance_type", DrMIPS.DEFAULT_PERFORMANCE_TYPE));
 	}
 
 	/**
@@ -2157,17 +2160,17 @@ public class FrmSimulator extends javax.swing.JFrame {
 
 		if(exit) {
 			// Save some preferences
-			DrMIPS.prefs.putInt(DrMIPS.REGISTER_FORMAT_PREF, cmbRegFormat.getSelectedIndex());
-			DrMIPS.prefs.putInt(DrMIPS.DATAPATH_DATA_FORMAT_PREF, cmbDatapathDataFormat.getSelectedIndex());
-			DrMIPS.prefs.putInt(DrMIPS.ASSEMBLED_CODE_FORMAT_PREF, cmbAssembledCodeFormat.getSelectedIndex());
-			DrMIPS.prefs.putInt(DrMIPS.DATA_MEMORY_FORMAT_PREF, cmbDataMemoryFormat.getSelectedIndex());
-			DrMIPS.prefs.putInt(DrMIPS.PERFORMANCE_TYPE_PREF, cmbDatapathPerformance.getSelectedIndex());
-			DrMIPS.prefs.putBoolean(DrMIPS.ASSEMBLE_RESET_PREF, mnuResetDataBeforeAssembling.isSelected());
+			DrMIPS.prefs.putInt("reg_format", cmbRegFormat.getSelectedIndex());
+			DrMIPS.prefs.putInt("datapath_format", cmbDatapathDataFormat.getSelectedIndex());
+			DrMIPS.prefs.putInt("assembled_code_format", cmbAssembledCodeFormat.getSelectedIndex());
+			DrMIPS.prefs.putInt("data_memory_format", cmbDataMemoryFormat.getSelectedIndex());
+			DrMIPS.prefs.putInt("performance_type", cmbDatapathPerformance.getSelectedIndex());
+			DrMIPS.prefs.putBoolean("assemble_reset", mnuResetDataBeforeAssembling.isSelected());
 			boolean maximized = getExtendedState() == MAXIMIZED_BOTH;
-			DrMIPS.prefs.putBoolean(DrMIPS.MAXIMIZED_PREF, maximized);
+			DrMIPS.prefs.putBoolean("maximized", maximized);
 			if(!maximized) {
-				DrMIPS.prefs.putInt(DrMIPS.WIDTH_PREF, getWidth());
-				DrMIPS.prefs.putInt(DrMIPS.HEIGHT_PREF, getHeight());
+				DrMIPS.prefs.putInt("width", getWidth());
+				DrMIPS.prefs.putInt("height", getHeight());
 			}
 
 			if(mnuInternalWindows.isSelected()) {
@@ -2178,7 +2181,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 				saveFrameBounds("data_memory", frmDataMemory);
 			}
 			else
-				DrMIPS.prefs.putInt(DrMIPS.DIVIDER_LOCATION_PREF, pnlSplit.getDividerLocation());
+				DrMIPS.prefs.putInt("div_location", pnlSplit.getDividerLocation());
 
 			System.exit(0);
 		}
@@ -2473,11 +2476,11 @@ public class FrmSimulator extends javax.swing.JFrame {
 		pnlLeft.removeAll();
 		pnlRight.removeAll();
 
-		tabCode = new Tab(pnlCode, Lang.t("code"), DrMIPS.prefs.getInt(DrMIPS.CODE_TAB_SIDE_PREF, DrMIPS.DEFAULT_CODE_TAB_SIDE));
-		tabAssembledCode = new Tab(pnlAssembledCode, Lang.t("assembled"), DrMIPS.prefs.getInt(DrMIPS.ASSEMBLED_CODE_TAB_SIDE_PREF, DrMIPS.DEFAULT_ASSEMBLED_CODE_TAB_SIDE));
-		tabDatapath = new Tab(pnlDatapath, Lang.t("datapath"), DrMIPS.prefs.getInt(DrMIPS.DATAPATH_TAB_SIDE_PREF, DrMIPS.DEFAULT_DATAPATH_TAB_SIDE));
-		tabRegisters = new Tab(pnlRegisters, Lang.t("registers"), DrMIPS.prefs.getInt(DrMIPS.REGISTERS_TAB_SIDE_PREF, DrMIPS.DEFAULT_REGISTERS_TAB_SIDE));
-		tabDataMemory = new Tab(pnlDataMemory, Lang.t("data_memory"), DrMIPS.prefs.getInt(DrMIPS.DATA_MEMORY_TAB_SIDE_PREF, DrMIPS.DEFAULT_DATA_MEMORY_TAB_SIDE));
+		tabCode = new Tab(pnlCode, Lang.t("code"), DrMIPS.prefs.getInt("code_tab_side", DrMIPS.DEFAULT_CODE_TAB_SIDE));
+		tabAssembledCode = new Tab(pnlAssembledCode, Lang.t("assembled"), DrMIPS.prefs.getInt("assembled_code_tab_side", DrMIPS.DEFAULT_ASSEMBLED_CODE_TAB_SIDE));
+		tabDatapath = new Tab(pnlDatapath, Lang.t("datapath"), DrMIPS.prefs.getInt("datapath_tab_side", DrMIPS.DEFAULT_DATAPATH_TAB_SIDE));
+		tabRegisters = new Tab(pnlRegisters, Lang.t("registers"), DrMIPS.prefs.getInt("reg_tab_side", DrMIPS.DEFAULT_REGISTERS_TAB_SIDE));
+		tabDataMemory = new Tab(pnlDataMemory, Lang.t("data_memory"), DrMIPS.prefs.getInt("data_mem_tab_side", DrMIPS.DEFAULT_DATA_MEMORY_TAB_SIDE));
 		repaint();
 	}
 
@@ -2510,14 +2513,14 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Switches the current theme.
 	 */
 	private void switchTheme() {
-		boolean currentDark = DrMIPS.prefs.getBoolean(DrMIPS.DARK_THEME_PREF, DrMIPS.DEFAULT_DARK_THEME);
+		boolean currentDark = DrMIPS.prefs.getBoolean("dark_theme", DrMIPS.DEFAULT_DARK_THEME);
 		boolean dark = mnuSwitchTheme.isSelected();
 		if(dark && !currentDark)
 			Util.setDarkLookAndFeel();
 		else if(!dark && currentDark)
 			Util.setLightLookAndFeel();
 
-		DrMIPS.prefs.putBoolean(DrMIPS.DARK_THEME_PREF, dark);
+		DrMIPS.prefs.putBoolean("dark_theme", dark);
 		SwingUtilities.updateComponentTreeUI(this);
 		if(dlgFindReplace != null) SwingUtilities.updateComponentTreeUI(dlgFindReplace);
 		if(dlgSupportedInstructions != null) SwingUtilities.updateComponentTreeUI(dlgSupportedInstructions);
@@ -2536,9 +2539,9 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * If using tabs switch to use internal frames and vice-versa.
 	 */
 	private void switchUseInternalWindows() {
-		boolean currentWindows = DrMIPS.prefs.getBoolean(DrMIPS.INTERNAL_WINDOWS_PREF, DrMIPS.DEFAULT_INTERNAL_WINDOWS);
+		boolean currentWindows = DrMIPS.prefs.getBoolean("internal_windows", DrMIPS.DEFAULT_INTERNAL_WINDOWS);
 		boolean windows = mnuInternalWindows.isSelected();
-		DrMIPS.prefs.putBoolean(DrMIPS.INTERNAL_WINDOWS_PREF, windows);
+		DrMIPS.prefs.putBoolean("internal_windows", windows);
 
 		if(windows && !currentWindows) // use internal frames
 			switchToInternalWindows();
@@ -2550,7 +2553,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Switches to use internal windows.
 	 */
 	private void switchToInternalWindows() {
-		DrMIPS.prefs.putInt(DrMIPS.DIVIDER_LOCATION_PREF, pnlSplit.getDividerLocation());
+		DrMIPS.prefs.putInt("div_location", pnlSplit.getDividerLocation());
 
 		remove(pnlSplit);
 		add(desktop, BorderLayout.CENTER);
@@ -2735,7 +2738,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	private void zoomIn() {
 		datapath.increaseScale();
 		updateZoomStatus();
-		DrMIPS.prefs.putDouble(DrMIPS.SCALE_PREF, datapath.getScale());
+		DrMIPS.prefs.putDouble("scale", datapath.getScale());
 		if(!mnuInternalWindows.isSelected())
 			tabDatapath.select();
 	}
@@ -2746,7 +2749,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	private void zoomOut() {
 		datapath.decreaseScale();
 		updateZoomStatus();
-		DrMIPS.prefs.putDouble(DrMIPS.SCALE_PREF, datapath.getScale());
+		DrMIPS.prefs.putDouble("scale", datapath.getScale());
 		if(!mnuInternalWindows.isSelected())
 			tabDatapath.select();
 	}
@@ -2757,7 +2760,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	private void zoomNormal() {
 		datapath.restoreDefaultScale();
 		updateZoomStatus();
-		DrMIPS.prefs.putDouble(DrMIPS.SCALE_PREF, datapath.getScale());
+		DrMIPS.prefs.putDouble("scale", datapath.getScale());
 		if(!mnuInternalWindows.isSelected())
 			tabDatapath.select();
 	}
@@ -2766,7 +2769,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Switches the "auto zoom" state.
 	 */
 	private void switchZoomAuto() {
-		boolean auto = !DrMIPS.prefs.getBoolean(DrMIPS.AUTO_SCALE_PREF, DrMIPS.DEFAULT_AUTO_SCALE);
+		boolean auto = !DrMIPS.prefs.getBoolean("auto_scale", DrMIPS.DEFAULT_AUTO_SCALE);
 		switchZoomAuto(auto);
 		if(!mnuInternalWindows.isSelected())
 			tabDatapath.select();
@@ -2777,11 +2780,11 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * @param auto Whether to enable or disable auto zoom.
 	 */
 	private void switchZoomAuto(boolean auto) {
-		DrMIPS.prefs.putBoolean(DrMIPS.AUTO_SCALE_PREF, auto);
+		DrMIPS.prefs.putBoolean("auto_scale", auto);
 		if(auto)
 			datapath.scaleToFitPanel(datapathScroll.getSize());
 		else
-			datapath.setScale(DrMIPS.prefs.getDouble(DrMIPS.SCALE_PREF, DrMIPS.DEFAULT_SCALE));
+			datapath.setScale(DrMIPS.prefs.getDouble("scale", DrMIPS.DEFAULT_SCALE));
 		updateZoomStatus();
 	}
 
@@ -2789,7 +2792,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Updates the enabled/selected state of zoom controls and the zoom level label.
 	 */
 	private void updateZoomStatus() {
-		boolean auto = DrMIPS.prefs.getBoolean(DrMIPS.AUTO_SCALE_PREF, DrMIPS.DEFAULT_AUTO_SCALE);
+		boolean auto = DrMIPS.prefs.getBoolean("auto_scale", DrMIPS.DEFAULT_AUTO_SCALE);
 		mnuZoomAutoAdjust.setSelected(auto);
 		chkZoomAutoAdjust.setSelected(auto);
 		mnuZoomIn.setEnabled(!auto && datapath.canIncreaseScale());

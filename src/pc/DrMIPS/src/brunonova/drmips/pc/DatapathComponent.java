@@ -1,6 +1,6 @@
 /*
     DrMIPS - Educational MIPS simulator
-    Copyright (C) 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
+    Copyright (C) 2013-2016 Bruno Nova <brunomb.nova@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,11 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
-/**
- * Graphical component that displays a CPU component.
- *
- * @author Bruno Nova
- */
+/** Graphical component that displays a CPU component. */
 public final class DatapathComponent extends JLabel implements MouseListener {
 	/** The font used for the text. */
 	private static final Font FONT = new Font(Font.MONOSPACED, Font.PLAIN, 8);
@@ -55,7 +51,7 @@ public final class DatapathComponent extends JLabel implements MouseListener {
 		super();
 		this.datapath = datapath;
 		this.component = component;
-		boolean dark = DrMIPS.prefs.getBoolean(DrMIPS.DARK_THEME_PREF, DrMIPS.DEFAULT_DARK_THEME);
+		boolean dark = DrMIPS.prefs.getBoolean("dark_theme", DrMIPS.DEFAULT_DARK_THEME);
 
 		setBorder(new LineBorder(Color.BLACK));
 		setOpaque(true);
@@ -113,7 +109,7 @@ public final class DatapathComponent extends JLabel implements MouseListener {
 	 * Refreshes the component tooltip with the current information, and possibly other things.
 	 */
 	public void refresh() {
-		boolean dark = DrMIPS.prefs.getBoolean(DrMIPS.DARK_THEME_PREF, DrMIPS.DEFAULT_DARK_THEME);
+		boolean dark = DrMIPS.prefs.getBoolean("dark_theme", DrMIPS.DEFAULT_DARK_THEME);
 
 		// Set fork gray if irrelevant
 		if(getComponent() instanceof Fork) {

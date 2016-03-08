@@ -59,41 +59,10 @@ public class DrMIPS {
 	public static final String DOC_DIR = "doc";
 	/** Absolute path to the fallback documentation directory (when installed in a separate directory). */
 	public static final String DOC_DIR2 = "@DRMIPS_MANUALS_DIR_ABSOLUTE@";
-
-	// Names of the preferences
-	public static final String RECENT_FILES_PREF = "recent";
+	/** Maximum number of files to show in the "Open recent" menu. */
 	public static final int MAX_RECENT_FILES = 10;
-	public static final String RECENT_CPUS_PREF = "recent_cpu";
+	/** Maximum number of CPUs to show in the CPU's "Load recent" menu. */
 	public static final int MAX_RECENT_CPUS = 10;
-	public static final String REGISTER_FORMAT_PREF = "reg_format";
-	public static final String DATAPATH_DATA_FORMAT_PREF = "datapath_format";
-	public static final String ASSEMBLED_CODE_FORMAT_PREF = "assembled_code_format";
-	public static final String DATA_MEMORY_FORMAT_PREF = "data_memory_format";
-	public static final String CODE_TAB_SIDE_PREF = "code_tab_side";
-	public static final String DATAPATH_TAB_SIDE_PREF = "datapath_tab_side";
-	public static final String REGISTERS_TAB_SIDE_PREF = "reg_tab_side";
-	public static final String ASSEMBLED_CODE_TAB_SIDE_PREF = "assembled_code_tab_side";
-	public static final String DATA_MEMORY_TAB_SIDE_PREF = "data_mem_tab_side";
-	public static final String DIVIDER_LOCATION_PREF = "div_location";
-	public static final String ASSEMBLE_RESET_PREF = "assemble_reset";
-	public static final String DARK_THEME_PREF = "dark_theme";
-	public static final String INTERNAL_WINDOWS_PREF = "internal_windows";
-	public static final String SHOW_CONTROL_PATH_PREF = "show_control_path";
-	public static final String SHOW_ARROWS_PREF = "show_arrows";
-	public static final String PERFORMANCE_MODE_PREF = "performance_mode";
-	public static final String PERFORMANCE_TYPE_PREF = "performance_type";
-	public static final String OVERLAYED_DATA_PREF = "overlayed_data";
-	public static final String OVERLAYED_SHOW_NAMES_PREF = "overlayed_show_names";
-	public static final String OVERLAYED_SHOW_FOR_ALL_PREF = "overlayed_show_for_all";
-	public static final String MAXIMIZED_PREF = "maximized";
-	public static final String WIDTH_PREF = "width";
-	public static final String HEIGHT_PREF = "height";
-	public static final String MARGIN_LINE_PREF = "margin_line";
-	public static final String LAST_FILE_PREF = "last_file";
-	public static final String OPEN_LAST_FILE_AT_STARTUP_PREF = "open_last_file_at_startup";
-	public static final String SCALE_PREF = "scale";
-	public static final String AUTO_SCALE_PREF = "auto_scale";
-	public static final String OPENGL_PREF = "use_opengl";
 
 	// Default values of the preferences
 	public static final int DEFAULT_REGISTER_FORMAT = Util.DECIMAL_FORMAT_INDEX;
@@ -211,7 +180,7 @@ public class DrMIPS {
 
 	@SuppressWarnings("UseSpecificCatch")
 	public static void main(String[] args) {
-		boolean useOpenGl = prefs.getBoolean(OPENGL_PREF, DEFAULT_OPENGL);
+		boolean useOpenGl = prefs.getBoolean("use_opengl", DEFAULT_OPENGL);
 
 		// Setup the default exception handler
 		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
@@ -239,10 +208,10 @@ public class DrMIPS {
 			}
 			if(options.has("no-opengl")) {
 				useOpenGl = false;
-				prefs.putBoolean(OPENGL_PREF, useOpenGl);
+				prefs.putBoolean("use_opengl", useOpenGl);
 			} else if(options.has("opengl")) {
 				useOpenGl = true;
-				prefs.putBoolean(OPENGL_PREF, useOpenGl);
+				prefs.putBoolean("use_opengl", useOpenGl);
 			}
 			if(!otherArgs.isEmpty()) {
 				if(otherArgs.size() == 1)
@@ -279,7 +248,7 @@ public class DrMIPS {
 			dlgLoading.paint(dlgLoading.getGraphics());
 
 			// Set the theme
-			if(prefs.getBoolean(DARK_THEME_PREF, DEFAULT_DARK_THEME))
+			if(prefs.getBoolean("dark_theme", DEFAULT_DARK_THEME))
 				Util.setDarkLookAndFeel();
 			else
 				Util.setLightLookAndFeel();
@@ -296,8 +265,8 @@ public class DrMIPS {
 			dlgLoading.paint(dlgLoading.getGraphics());
 
 			// Start the main window
-			if(filename == null && prefs.getBoolean(OPEN_LAST_FILE_AT_STARTUP_PREF, DEFAULT_OPEN_LAST_FILE_AT_STARTUP)) {
-				String f = prefs.get(LAST_FILE_PREF, null);
+			if(filename == null && prefs.getBoolean("open_last_file_at_startup", DEFAULT_OPEN_LAST_FILE_AT_STARTUP)) {
+				String f = prefs.get("last_file", null);
 				if(f != null && new File(f).isFile())
 					filename = f;
 			}
