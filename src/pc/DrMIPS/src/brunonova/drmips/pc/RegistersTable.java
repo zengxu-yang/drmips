@@ -1,6 +1,6 @@
 /*
     DrMIPS - Educational MIPS simulator
-    Copyright (C) 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
+    Copyright (C) 2013-2016 Bruno Nova <brunomb.nova@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,11 +33,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * The table of registers in the registers tab.
- *
- * @author Bruno Nova
- */
+/** The table of registers in the registers tab. */
 public class RegistersTable extends JTable implements MouseListener {
 	/** The index of the register column. */
 	private static final int REGISTER_COLUMN_INDEX = 0;
@@ -59,7 +55,7 @@ public class RegistersTable extends JTable implements MouseListener {
 	/** The row index of the Program Counter table. */
 	private int pcIndex = 0;
 	/** The format of the data (<tt>Util.BINARYL_FORMAT_INDEX/Util.DECIMAL_FORMAT_INDEX/Util.HEXADECIMAL_FORMAT_INDEX</tt>). */
-	private int dataFormat = DrMIPS.DEFAULT_DATAPATH_DATA_FORMAT;
+	private int dataFormat = Util.DECIMAL_FORMAT_INDEX;
 
 	/**
 	 * Creates the registers table.

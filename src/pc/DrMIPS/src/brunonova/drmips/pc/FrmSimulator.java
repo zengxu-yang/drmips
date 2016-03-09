@@ -2077,10 +2077,10 @@ public class FrmSimulator extends javax.swing.JFrame {
 		lblDataMemoryFormat.setText(Lang.t("format") + ":");
 		lblFile.setText(Lang.t("file") + ":");
 
-		initFormatComboBox(cmbRegFormat, "reg_format", DrMIPS.DEFAULT_REGISTER_FORMAT);
-		initFormatComboBox(cmbDatapathDataFormat, "datapath_format", DrMIPS.DEFAULT_DATAPATH_DATA_FORMAT);
-		initFormatComboBox(cmbAssembledCodeFormat, "assembled_code_format", DrMIPS.DEFAULT_ASSEMBLED_CODE_FORMAT);
-		initFormatComboBox(cmbDataMemoryFormat, "data_memory_format", DrMIPS.DEFAULT_DATA_MEMORY_FORMAT);
+		initFormatComboBox(cmbRegFormat, "reg_format");
+		initFormatComboBox(cmbDatapathDataFormat, "datapath_format");
+		initFormatComboBox(cmbAssembledCodeFormat, "assembled_code_format");
+		initFormatComboBox(cmbDataMemoryFormat, "data_memory_format");
 		initPerformanceComboBox();
 
 		datapath.translate(cmbDatapathDataFormat.getSelectedIndex());
@@ -2117,16 +2117,15 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Initializes/translates the specified data format selection combo box.
 	 * @param cmb The combo box.
 	 * @param formatPref The name of the preference for the saved previous format.
-	 * @param defaultFormat The default data format.
 	 */
-	private void initFormatComboBox(JComboBox cmb, String formatPref, int defaultFormat) {
+	private void initFormatComboBox(JComboBox cmb, String formatPref) {
 		if(cmb.getSelectedIndex() >= 0)
 			DrMIPS.prefs.putInt(formatPref, cmb.getSelectedIndex());
 		cmb.removeAllItems();
 		cmb.addItem(Lang.t("binary"));
 		cmb.addItem(Lang.t("decimal"));
 		cmb.addItem(Lang.t("hexadecimal"));
-		cmb.setSelectedIndex(DrMIPS.prefs.getInt(formatPref, defaultFormat));
+		cmb.setSelectedIndex(DrMIPS.prefs.getInt(formatPref, Util.DECIMAL_FORMAT_INDEX));
 	}
 
 	/**

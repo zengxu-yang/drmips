@@ -65,10 +65,6 @@ public class DrMIPS {
 	public static final int MAX_RECENT_CPUS = 10;
 
 	// Default values of the preferences
-	public static final int DEFAULT_REGISTER_FORMAT = Util.DECIMAL_FORMAT_INDEX;
-	public static final int DEFAULT_DATAPATH_DATA_FORMAT = Util.DECIMAL_FORMAT_INDEX;
-	public static final int DEFAULT_ASSEMBLED_CODE_FORMAT = Util.DECIMAL_FORMAT_INDEX;
-	public static final int DEFAULT_DATA_MEMORY_FORMAT = Util.DECIMAL_FORMAT_INDEX;
 	public static final int DEFAULT_PERFORMANCE_TYPE = Util.CPU_PERFORMANCE_TYPE_INDEX;
 	public static final int DEFAULT_CODE_TAB_SIDE = Util.LEFT;
 	public static final int DEFAULT_DATAPATH_TAB_SIDE = Util.LEFT;

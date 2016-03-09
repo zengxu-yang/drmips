@@ -1,6 +1,6 @@
 /*
     DrMIPS - Educational MIPS simulator
-    Copyright (C) 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
+    Copyright (C) 2013-2016 Bruno Nova <brunomb.nova@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,11 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- * Dialog that displays information of the program.
- * 
- * @author Bruno Nova
- */
+/** Dialog that displays information of the program. */
 public class DlgAbout extends javax.swing.JDialog {
 	/** Class logger. */
 	private static final Logger LOG = Logger.getLogger(DlgAbout.class.getName());
@@ -231,7 +227,7 @@ public class DlgAbout extends javax.swing.JDialog {
 		String email_html = AppInfo.MAIN_AUTHOR_NAME_EMAIL.replace("<", "&lt;").replace(">", "&gt;");
 		lblAuthor.setText("<html>" + Lang.t("by_author", "<u>" + email_html + "</u>") + "</html>");
 	}
-	
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdCredits;
     private javax.swing.JButton cmdLicense;

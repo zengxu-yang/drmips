@@ -49,7 +49,7 @@ public class DatapathPanel extends JLayeredPane {
 	/** The wires that connect the graphical components. */
 	private List<Wire> wires = null;
 	/** The format of the data (<tt>Util.BINARYL_FORMAT_INDEX/Util.DECIMAL_FORMAT_INDEX/Util.HEXADECIMAL_FORMAT_INDEX</tt>). */
-	private int dataFormat = DrMIPS.DEFAULT_DATAPATH_DATA_FORMAT;
+	private int dataFormat = Util.DECIMAL_FORMAT_INDEX;
 	/** Whether the control path is visible. */
 	private boolean controlPathVisible = true;
 	/** Whether to show arrows in the wires. */

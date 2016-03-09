@@ -1,6 +1,6 @@
 /*
     DrMIPS - Educational MIPS simulator
-    Copyright (C) 2013-2015 Bruno Nova <brunomb.nova@gmail.com>
+    Copyright (C) 2013-2016 Bruno Nova <brunomb.nova@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,10 +20,6 @@ package brunonova.drmips.pc;
 
 import brunonova.drmips.simulator.CPU;
 
-/**
- *
- * @author bruno
- */
 public class DlgStatistics extends javax.swing.JDialog {
 	/**
 	 * Creates new form DlgStatistics
@@ -211,7 +207,7 @@ public class DlgStatistics extends javax.swing.JDialog {
 	private void close() {
 		setVisible(false);
 	}
-	
+
 	/**
 	 * Translates the dialog's strings.
 	 */
@@ -227,7 +223,7 @@ public class DlgStatistics extends javax.swing.JDialog {
 		lblForwards.setText(Lang.t("forwards") + ":");
 		lblStalls.setText(Lang.t("stalls") + ":");
 	}
-	
+
 	/**
 	 * Refreshes the values.
 	 * @param cpu CPU from where to get the statistics.
@@ -242,7 +238,7 @@ public class DlgStatistics extends javax.swing.JDialog {
 		lblForwardsVal.setText(cpu.getNumberOfForwards() + "");
 		lblStallsVal.setText(cpu.getNumberOfStalls() + "");
 	}
-	
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdClose;
     private javax.swing.JPanel jPanel1;
