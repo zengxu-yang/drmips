@@ -55,10 +55,6 @@ public class DrMIPS {
 	public static final Preferences prefs = Preferences.userNodeForPackage(DrMIPS.class);
 	/** The CPU file loaded by default. */
 	public static final String DEFAULT_CPU = "cpu" + File.separator + "unicycle.cpu";
-	/** Relative path to the documentation directory. */
-	public static final String DOC_DIR = "doc";
-	/** Absolute path to the fallback documentation directory (when installed in a separate directory). */
-	public static final String DOC_DIR2 = "@DRMIPS_MANUALS_DIR_ABSOLUTE@";
 	/** Maximum number of files to show in the "Open recent" menu. */
 	public static final int MAX_RECENT_FILES = 10;
 	/** Maximum number of CPUs to show in the CPU's "Load recent" menu. */
@@ -113,6 +109,28 @@ public class DrMIPS {
 	 */
 	public static String getDefaultCPUPath() {
 		return path + File.separator + DEFAULT_CPU;
+	}
+
+	/**
+	 * Returns the documentation directory.
+	 *
+	 * <p>The method will first search for a directory named "doc" in the
+	 * directory where the jar is located. Failing that, it will search in an
+	 * absolute path provided by CMake (used when the documentation is installed
+	 * in {@code /usr/share/doc}). If that fails, {@code null} is returned.</p>
+	 * @return Documentation directory, or {@code null} if not found.
+	 */
+	public static File getDocDir() {
+		File relativeDir = new File(getPath() + File.separator + "doc");
+		File separateDir = new File("@DRMIPS_MANUALS_DIR_ABSOLUTE@");
+
+		if(relativeDir.isDirectory()) {
+			return relativeDir;
+		} else if(separateDir.isDirectory()) {
+			return separateDir;
+		} else {
+			return null;
+		}
 	}
 
 

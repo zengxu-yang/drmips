@@ -2665,33 +2665,30 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * Opens the documentation directory.
 	 */
 	public void openDocDir() {
-		File docDir = new File(DrMIPS.getPath() + File.separator + DrMIPS.DOC_DIR);
-		File docDir2 = new File(DrMIPS.DOC_DIR2);
-		File dir;
-
-		if(docDir.isDirectory())
-			dir = docDir;
-		else if(docDir2.isDirectory())
-			dir = docDir2;
-		else {
-			JOptionPane.showMessageDialog(this, Lang.t("doc_dir_not_found"), AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
+		File dir = DrMIPS.getDocDir();
+		if(dir == null) {
+			JOptionPane.showMessageDialog(this, Lang.t("doc_dir_not_found"),
+			                              AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
 		if(!Desktop.isDesktopSupported()) {
 			LOG.log(Level.WARNING, "Desktop class is not supported in this system");
-			JOptionPane.showMessageDialog(this, Lang.t("failed_to_open_doc_folder", dir.getAbsolutePath()), AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, Lang.t("failed_to_open_doc_folder",
+			                                           dir.getAbsolutePath()),
+			                              AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
-		if(!openDocIndex(dir)) { // try to open index.html
-			// if failed, try to open the directory
+		// Try to open index.html. If failed, try to open the directory
+		if(!openDocIndex(dir)) {
 			try {
 				Desktop.getDesktop().open(dir);
-			}
-			catch(Exception ex) {
+			} catch(Exception ex) {
 				LOG.log(Level.WARNING, "error opening doc folder", ex);
-				JOptionPane.showMessageDialog(this, Lang.t("failed_to_open_doc_folder", dir.getAbsolutePath()), AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, Lang.t("failed_to_open_doc_folder",
+				                                           dir.getAbsolutePath()),
+				                              AppInfo.NAME, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
