@@ -76,18 +76,15 @@ public class DrMIPS {
 	public static final boolean DEFAULT_OVERLAYED_DATA = true;
 	public static final boolean DEFAULT_OVERLAYED_SHOW_NAMES = false;
 	public static final boolean DEFAULT_OVERLAYED_SHOW_FOR_ALL = false;
-	public static final boolean DEFAULT_MAXIMIZED = true;
-	public static final int DEFAULT_WIDTH = 800;
-	public static final int DEFAULT_HEIGHT = 600;
 	public static final boolean DEFAULT_MARGIN_LINE = false;
 	public static final boolean DEFAULT_OPEN_LAST_FILE_AT_STARTUP = false;
 	public static final double DEFAULT_SCALE = 1.0;
 	public static final boolean DEFAULT_AUTO_SCALE = false;
 	public static final boolean DEFAULT_OPENGL = false;
 
-	private static FrmSimulator frmSim = null;
-	private static String filename = null;  // optional filename to open
-	private static String path = null;  // cached path to jar file
+	private static FrmSimulator frmSim;
+	private static String filename;  // optional filename to open
+	private static String path;  // cached path to jar file
 	private static final Logger LOG = Logger.getLogger(DrMIPS.class.getName());
 
 

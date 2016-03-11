@@ -62,6 +62,11 @@ import org.json.JSONException;
 
 /** Main simulator window. */
 public class FrmSimulator extends javax.swing.JFrame {
+	// Default parameters
+	public static final int DEFAULT_WIDTH = 800;
+	public static final int DEFAULT_HEIGHT = 600;
+	public static final boolean DEFAULT_MAXIMIZED = true;
+
 	/** The currently loaded CPU. */
 	public CPU cpu = null;
 	/** The file chooser to choose a CPU file. */
@@ -116,10 +121,6 @@ public class FrmSimulator extends javax.swing.JFrame {
 	public FrmSimulator() {
 		obtainIcons();
 		initComponents();
-		setSize(DrMIPS.prefs.getInt("width", DrMIPS.DEFAULT_WIDTH),
-		        DrMIPS.prefs.getInt("height", DrMIPS.DEFAULT_HEIGHT));
-		if(DrMIPS.prefs.getBoolean("maximized", DrMIPS.DEFAULT_MAXIMIZED))
-			setExtendedState(MAXIMIZED_BOTH);
 		datapath.setParent(this);
 		if(DrMIPS.prefs.getInt("div_location", -1) != -1) {
 			pnlSplit.setDividerLocation(DrMIPS.prefs.getInt("div_location", -1));
@@ -445,8 +446,11 @@ public class FrmSimulator extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.NAME);
+        setExtendedState(DrMIPS.prefs.getBoolean("maximized", DEFAULT_MAXIMIZED) ? MAXIMIZED_BOTH : NORMAL
+        );
         setIconImages(icons);
         setMinimumSize(new java.awt.Dimension(500, 400));
+        setSize(DrMIPS.prefs.getInt("width", DEFAULT_WIDTH), DrMIPS.prefs.getInt("height", DEFAULT_HEIGHT));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -1294,8 +1298,6 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuBar.add(mnuHelp);
 
         setJMenuBar(mnuBar);
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
