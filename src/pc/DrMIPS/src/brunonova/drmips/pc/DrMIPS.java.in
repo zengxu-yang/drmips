@@ -78,11 +78,11 @@ public class DrMIPS {
 	public static final boolean DEFAULT_OPEN_LAST_FILE_AT_STARTUP = false;
 	public static final double DEFAULT_SCALE = 1.0;
 	public static final boolean DEFAULT_AUTO_SCALE = false;
-	public static final boolean DEFAULT_OPENGL = false;
 
 	private static FrmSimulator frmSim;
 	private static String filename;  // optional filename to open
 	private static String path;  // cached path to jar file
+	private static boolean useOpenGL;
 	private static final Logger LOG = Logger.getLogger(DrMIPS.class.getName());
 
 
@@ -113,7 +113,7 @@ public class DrMIPS {
 	 * directory where the jar is located. Failing that, it will search in an
 	 * absolute path provided by CMake (used when the documentation is installed
 	 * in {@code /usr/share/doc}). If that fails, {@code null} is returned.</p>
-	 * @return Documentation directory, or {@code null} if not found.
+	 * @return documentation directory, or {@code null} if not found.
 	 */
 	public static File getDocDir() {
 		File relativeDir = new File(getPath() + File.separator + "doc");
@@ -126,6 +126,14 @@ public class DrMIPS {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Returns whether OpenGL hardware acceleration is enabled.
+	 * @return {@code true} if OpenGL is enabled.
+	 */
+	public static boolean isUsingOpenGL() {
+		return useOpenGL;
 	}
 
 
@@ -183,8 +191,9 @@ public class DrMIPS {
 		System.exit(0);
 	}
 
-	private static void enableOpenGl() {
-		// Hardware acceleration using OpenGL
+	private static void enableOpenGL() {
+		// Enable hardware acceleration using OpenGL.
+		// "True" instead of "true" will make a debug message be displayed.
 		System.setProperty("sun.java2d.opengl", "True");
 	}
 
@@ -201,7 +210,7 @@ public class DrMIPS {
 
 			OptionSet options = parser.parse(args);
 			List<String> otherArgs = options.valuesOf(fileArg);
-			boolean useOpenGl = prefs.getBoolean("use_opengl", DEFAULT_OPENGL);
+			useOpenGL = prefs.getBoolean("use_opengl", false);
 
 			if(options.has("help")) {
 				displayHelpAndExit(parser);
@@ -213,15 +222,15 @@ public class DrMIPS {
 
 			if(options.has("reset")) {
 				prefs.clear();
-				useOpenGl = DEFAULT_OPENGL;
+				useOpenGL = false;
 			}
 
 			if(options.has("no-opengl")) {
-				useOpenGl = false;
-				prefs.putBoolean("use_opengl", useOpenGl);
+				useOpenGL = false;
+				prefs.putBoolean("use_opengl", useOpenGL);
 			} else if(options.has("opengl")) {
-				useOpenGl = true;
-				prefs.putBoolean("use_opengl", useOpenGl);
+				useOpenGL = true;
+				prefs.putBoolean("use_opengl", useOpenGL);
 			}
 
 			if(!otherArgs.isEmpty()) {
@@ -234,7 +243,7 @@ public class DrMIPS {
 			}
 
 			// If requested, try to enable OpenGL hardware acceleration
-			if(useOpenGl) enableOpenGl();
+			if(useOpenGL) enableOpenGL();
 		} catch(Exception ex) {
 			System.err.println("Error parsing arguments: " + ex.getMessage());
 			System.exit(1);

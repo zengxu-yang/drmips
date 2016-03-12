@@ -93,9 +93,7 @@ public class FrmSimulator extends javax.swing.JFrame {
 	private static final Logger LOG = Logger.getLogger(FrmSimulator.class.getName());
 
 
-	/**
-	 * Creates new form FrmSimulator.
-	 */
+	/** Creates new form FrmSimulator. */
 	public FrmSimulator() {
 		obtainIcons();
 		initComponents();
@@ -123,7 +121,6 @@ public class FrmSimulator extends javax.swing.JFrame {
 		mnuInternalWindows.setSelected(DrMIPS.prefs.getBoolean("internal_windows", DrMIPS.DEFAULT_INTERNAL_WINDOWS));
 		if(mnuInternalWindows.isSelected()) switchToInternalWindows();
 		mnuMarginLine.setSelected(DrMIPS.prefs.getBoolean("margin_line", DrMIPS.DEFAULT_MARGIN_LINE));
-		mnuOpenGL.setSelected(DrMIPS.prefs.getBoolean("use_opengl", DrMIPS.DEFAULT_OPENGL));
 		txtCode.setMarginLineEnabled(mnuMarginLine.isSelected());
 		mnuControlPath.setSelected(DrMIPS.prefs.getBoolean("show_control_path", DrMIPS.DEFAULT_SHOW_CONTROL_PATH));
 		datapath.setControlPathVisible(mnuControlPath.isSelected());
@@ -938,6 +935,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuLanguage.setText("language");
         mnuView.add(mnuLanguage);
 
+        mnuOpenGL.setSelected(DrMIPS.isUsingOpenGL());
         mnuOpenGL.setText("opengl_acceleration");
         mnuOpenGL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1282,6 +1280,9 @@ public class FrmSimulator extends javax.swing.JFrame {
         setJMenuBar(mnuBar);
     }// </editor-fold>//GEN-END:initComponents
 
+
+	// Event listeners
+	// <editor-fold defaultstate="collapsed">
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 		exit();
     }//GEN-LAST:event_formWindowClosing
@@ -1661,25 +1662,16 @@ public class FrmSimulator extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuOverlayedShowForAllActionPerformed
 
     private void mnuOpenGLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenGLActionPerformed
-		boolean useOpenGl = DrMIPS.prefs.getBoolean("use_opengl", DrMIPS.DEFAULT_OPENGL);
-		int res;
+		boolean useOpenGl = DrMIPS.isUsingOpenGL();
+		String msg = Lang.t(useOpenGl ? "disable_opengl_msg" : "enable_opengl_msg");
 
-		if(!useOpenGl) {
-			res = JOptionPane.showConfirmDialog(this, Lang.t("enable_opengl_msg"), AppInfo.NAME, JOptionPane.OK_CANCEL_OPTION);
-			if(res == JOptionPane.OK_OPTION) {
-				DrMIPS.prefs.putBoolean("use_opengl", true);
-				mnuOpenGL.setEnabled(false);
-			} else {
-				mnuOpenGL.setSelected(useOpenGl);
-			}
+		int res = JOptionPane.showConfirmDialog(this, msg, AppInfo.NAME,
+		                                        JOptionPane.OK_CANCEL_OPTION);
+		if(res == JOptionPane.OK_OPTION) {
+			DrMIPS.prefs.putBoolean("use_opengl", !useOpenGl);
+			mnuOpenGL.setEnabled(false);
 		} else {
-			res = JOptionPane.showConfirmDialog(this, Lang.t("disable_opengl_msg"), AppInfo.NAME, JOptionPane.OK_CANCEL_OPTION);
-			if(res == JOptionPane.OK_OPTION) {
-				DrMIPS.prefs.putBoolean("use_opengl", false);
-				mnuOpenGL.setEnabled(false);
-			} else {
-				mnuOpenGL.setSelected(useOpenGl);
-			}
+			mnuOpenGL.setSelected(useOpenGl);
 		}
     }//GEN-LAST:event_mnuOpenGLActionPerformed
 
@@ -1708,6 +1700,8 @@ public class FrmSimulator extends javax.swing.JFrame {
 
 		resizeTimer.restart();
     }//GEN-LAST:event_formComponentResized
+	// </editor-fold>
+
 
 	/**
 	 * Sets the path of the opened file and updates the title bar and recent files.

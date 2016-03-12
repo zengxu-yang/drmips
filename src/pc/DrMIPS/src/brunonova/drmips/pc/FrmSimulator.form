@@ -337,6 +337,9 @@
             </Menu>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="mnuOpenGL">
               <Properties>
+                <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="DrMIPS.isUsingOpenGL()" type="code"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="opengl_acceleration"/>
               </Properties>
               <Events>
