@@ -50,6 +50,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
@@ -62,58 +63,35 @@ import org.json.JSONException;
 
 /** Main simulator window. */
 public class FrmSimulator extends javax.swing.JFrame {
-	// Default parameters
-	public static final int DEFAULT_WIDTH = 800;
-	public static final int DEFAULT_HEIGHT = 600;
-	public static final boolean DEFAULT_MAXIMIZED = true;
-
 	/** The currently loaded CPU. */
-	public CPU cpu = null;
+	public CPU cpu;
 	/** The file chooser to choose a CPU file. */
-	private JFileChooser cpuFileChooser = null;
+	private JFileChooser cpuFileChooser;
 	/** The file chooser to open/save a code file. */
-	private JFileChooser codeFileChooser = null;
+	private JFileChooser codeFileChooser;
 	/** The file filter of the open/save file chooser. */
-	private FileNameExtensionFilter codeFileFilter = null;
+	private FileNameExtensionFilter codeFileFilter;
 	/** The file currently open (if <tt>null</tt> no file is open). */
-	private File openFile = null;
+	private File openFile;
 	/** The window icon (in different sizes). */
-	private List<Image> icons = null;
+	private List<Image> icons;
 	/** The code editor component. */
-	private CodeEditor txtCode = null;
-	/** The find/replace dialog. */
-	private DlgFindReplace dlgFindReplace = null;
-	/** The supported instructions dialog. */
-	private DlgSupportedInstructions dlgSupportedInstructions = null;
-	/** The statistics dialog. */
-	private DlgStatistics dlgStatistics = null; // statistics refreshed in DatapathPanel.refresh()
-	/** The selected tab when it was right-clicked. */
-	private Tab selectedTab = null;
+	private CodeEditor txtCode;
+	private DlgFindReplace dlgFindReplace;
+	private DlgSupportedInstructions dlgSupportedInstructions;
+	private DlgStatistics dlgStatistics;  // statistics refreshed in DatapathPanel.refresh()
+	private Timer resizeTimer;
 
-	/** Information of the code tab. */
-	private Tab tabCode;
-	/** Information of the datapath tab. */
-	private Tab tabDatapath;
-	/** Information of the registers tab. */
-	private Tab tabRegisters;
-	/** Information of the assembled code tab. */
-	private Tab tabAssembledCode;
-	/** Information of the data memory tab. */
-	private Tab tabDataMemory;
+	// Objects with information about the tabs
+	private Tab tabCode, tabDatapath, tabRegisters, tabAssembledCode, tabDataMemory;
+	private Tab selectedTab;  // the selected tab when it was right-clicked
 
-	/** Internal frame for the code editor. */
-	private JScrollInternalFrame frmCode = null;
-	/** Internal frame for the assembled code table. */
-	private JScrollInternalFrame frmAssembledCode = null;
-	/** Internal frame for the datapath. */
-	private JScrollInternalFrame frmDatapath = null;
-	/** Internal frame for the registers table. */
-	private JScrollInternalFrame frmRegisters = null;
-	/** Internal frame for the data memory table. */
-	private JScrollInternalFrame frmDataMemory = null;
+	// Internal frames
+	private JScrollInternalFrame frmCode, frmAssembledCode, frmDatapath,
+	                             frmRegisters, frmDataMemory;
 
-	/** Class logger. */
 	private static final Logger LOG = Logger.getLogger(FrmSimulator.class.getName());
+
 
 	/**
 	 * Creates new form FrmSimulator.
@@ -446,11 +424,15 @@ public class FrmSimulator extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.NAME);
-        setExtendedState(DrMIPS.prefs.getBoolean("maximized", DEFAULT_MAXIMIZED) ? MAXIMIZED_BOTH : NORMAL
-        );
+        setExtendedState(DrMIPS.prefs.getBoolean("maximized", true) ? MAXIMIZED_BOTH : NORMAL);
         setIconImages(icons);
         setMinimumSize(new java.awt.Dimension(500, 400));
-        setSize(DrMIPS.prefs.getInt("width", DEFAULT_WIDTH), DrMIPS.prefs.getInt("height", DEFAULT_HEIGHT));
+        setSize(DrMIPS.prefs.getInt("width", 800), DrMIPS.prefs.getInt("height", 600));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -1701,6 +1683,32 @@ public class FrmSimulator extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_mnuOpenGLActionPerformed
 
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+		// Save the geometry of the window to the preferences.
+		// But, to avoid doing so dozens of times during a resize, delay the
+		// saving action by using a timer that restarts every time this method
+		// is called.
+		if(resizeTimer == null) {
+			// First time called, so create and setup the timer
+			resizeTimer = new Timer(500, new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Save the preferences
+					boolean maximized = isMaximized();
+					DrMIPS.prefs.putBoolean("maximized", maximized);
+
+					if(!maximized) {
+						DrMIPS.prefs.putInt("width", getWidth());
+						DrMIPS.prefs.putInt("height", getHeight());
+					}
+				}
+			});
+			resizeTimer.setRepeats(false);
+		}
+
+		resizeTimer.restart();
+    }//GEN-LAST:event_formComponentResized
+
 	/**
 	 * Sets the path of the opened file and updates the title bar and recent files.
 	 * @param path Path to the opened file.
@@ -2167,12 +2175,6 @@ public class FrmSimulator extends javax.swing.JFrame {
 			DrMIPS.prefs.putInt("data_memory_format", cmbDataMemoryFormat.getSelectedIndex());
 			DrMIPS.prefs.putInt("performance_type", cmbDatapathPerformance.getSelectedIndex());
 			DrMIPS.prefs.putBoolean("assemble_reset", mnuResetDataBeforeAssembling.isSelected());
-			boolean maximized = getExtendedState() == MAXIMIZED_BOTH;
-			DrMIPS.prefs.putBoolean("maximized", maximized);
-			if(!maximized) {
-				DrMIPS.prefs.putInt("width", getWidth());
-				DrMIPS.prefs.putInt("height", getHeight());
-			}
 
 			if(mnuInternalWindows.isSelected()) {
 				saveFrameBounds("code", frmCode);
@@ -2800,6 +2802,14 @@ public class FrmSimulator extends javax.swing.JFrame {
 		cmdZoomOut.setEnabled(!auto && mnuZoomOut.isEnabled());
 		cmdZoomNormal.setEnabled(!auto && mnuZoomNormal.isEnabled());
 		lblZoom.setText(Lang.t("zoom", Math.round(datapath.getScale() * 100) + "%"));
+	}
+
+	/**
+	 * Returns whether the window is currently maximized.
+	 * @return {@code true} if the window is maximized.
+	 */
+	private boolean isMaximized() {
+		return (getExtendedState() & MAXIMIZED_BOTH) == MAXIMIZED_BOTH;
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
