@@ -108,43 +108,33 @@ public class FrmSimulator extends javax.swing.JFrame {
 		refreshTabSides();
 		updateRecentFiles();
 		loadFirstCPU();
-		translate();
 		fillLanguages();
 		txtCode.requestFocus();
 		txtCode.getDocument().addDocumentListener(new CodeEditorDocumentListener());
 		txtCode.addCaretListener(new CodeEditorCaretListener());
+		txtCode.setMarginLineEnabled(mnuMarginLine.isSelected());
 		desktop.registerDefaultFrameIcon(new ImageIcon(getClass().getResource("/res/icons/x16/drmips.png")));
 
 		mnuOpenLastFileAtStartup.setSelected(DrMIPS.prefs.getBoolean("open_last_file_at_startup", DrMIPS.DEFAULT_OPEN_LAST_FILE_AT_STARTUP));
-		mnuResetDataBeforeAssembling.setSelected(DrMIPS.prefs.getBoolean("assemble_reset", DrMIPS.DEFAULT_ASSEMBLE_RESET));
 		mnuSwitchTheme.setSelected(DrMIPS.prefs.getBoolean("dark_theme", DrMIPS.DEFAULT_DARK_THEME));
-		mnuInternalWindows.setSelected(DrMIPS.prefs.getBoolean("internal_windows", DrMIPS.DEFAULT_INTERNAL_WINDOWS));
 		if(mnuInternalWindows.isSelected()) switchToInternalWindows();
-		mnuMarginLine.setSelected(DrMIPS.prefs.getBoolean("margin_line", DrMIPS.DEFAULT_MARGIN_LINE));
-		txtCode.setMarginLineEnabled(mnuMarginLine.isSelected());
 		mnuControlPath.setSelected(DrMIPS.prefs.getBoolean("show_control_path", DrMIPS.DEFAULT_SHOW_CONTROL_PATH));
 		datapath.setControlPathVisible(mnuControlPath.isSelected());
 		mnuArrowsInWires.setSelected(DrMIPS.prefs.getBoolean("show_arrows", DrMIPS.DEFAULT_SHOW_ARROWS));
 		datapath.setShowArrows(mnuArrowsInWires.isSelected());
-		mnuPerformanceMode.setSelected(DrMIPS.prefs.getBoolean("performance_mode", DrMIPS.DEFAULT_PERFORMANCE_MODE));
 		datapath.setPerformanceMode(mnuPerformanceMode.isSelected());
 		lblDatapathDataFormat.setVisible(!mnuPerformanceMode.isSelected());
 		cmbDatapathDataFormat.setVisible(!mnuPerformanceMode.isSelected());
 		lblDatapathPerformance.setVisible(mnuPerformanceMode.isSelected());
 		cmbDatapathPerformance.setVisible(mnuPerformanceMode.isSelected());
-		mnuOverlayedData.setSelected(DrMIPS.prefs.getBoolean("overlayed_data", DrMIPS.DEFAULT_OVERLAYED_DATA));
 		datapath.setShowTips(mnuOverlayedData.isSelected());
-		mnuOverlayedShowNames.setEnabled(mnuOverlayedData.isSelected());
-		mnuOverlayedShowNames.setSelected(DrMIPS.prefs.getBoolean("overlayed_show_names", DrMIPS.DEFAULT_OVERLAYED_SHOW_NAMES));
 		datapath.setShowTipsNames(mnuOverlayedShowNames.isSelected());
-		mnuOverlayedShowForAll.setEnabled(mnuOverlayedData.isSelected());
-		mnuOverlayedShowForAll.setSelected(DrMIPS.prefs.getBoolean("overlayed_show_for_all", DrMIPS.DEFAULT_OVERLAYED_SHOW_FOR_ALL));
 		datapath.setShowTipsForAllComps(mnuOverlayedShowForAll.isSelected());
-		mnuRemoveLatencies.setEnabled(mnuPerformanceMode.isSelected());
-		mnuRestoreLatencies.setEnabled(mnuPerformanceMode.isSelected());
 		refreshDatapathHelp();
 		switchZoomAuto(DrMIPS.prefs.getBoolean("auto_scale", DrMIPS.DEFAULT_AUTO_SCALE));
 		updateZoomStatus();
+
+		translate();
 	}
 
 	/**
@@ -892,6 +882,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         });
         mnuView.add(mnuSwitchTheme);
 
+        mnuInternalWindows.setSelected(DrMIPS.prefs.getBoolean("internal_windows", false));
         mnuInternalWindows.setText("internal_windows");
         mnuInternalWindows.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icons/x16/windows.png"))); // NOI18N
         mnuInternalWindows.addActionListener(new java.awt.event.ActionListener() {
@@ -923,6 +914,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuView.add(mnuWindows);
         mnuView.add(jSeparator11);
 
+        mnuMarginLine.setSelected(DrMIPS.prefs.getBoolean("margin_line", false));
         mnuMarginLine.setText("show_margin_line");
         mnuMarginLine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1030,6 +1022,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuDatapath.setText("datapath");
 
         mnuPerformanceMode.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPerformanceMode.setSelected(DrMIPS.prefs.getBoolean("performance_mode", false));
         mnuPerformanceMode.setText("performance_mode");
         mnuPerformanceMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1061,7 +1054,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuOverlayed.setText("overlayed_data");
 
         mnuOverlayedData.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        mnuOverlayedData.setSelected(true);
+        mnuOverlayedData.setSelected(DrMIPS.prefs.getBoolean("overlayed_data", true));
         mnuOverlayedData.setText("display");
         mnuOverlayedData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1071,7 +1064,9 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuOverlayed.add(mnuOverlayedData);
 
         mnuOverlayedShowNames.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuOverlayedShowNames.setSelected(DrMIPS.prefs.getBoolean("overlayed_show_names", false));
         mnuOverlayedShowNames.setText("show_names");
+        mnuOverlayedShowNames.setEnabled(mnuOverlayedData.isSelected());
         mnuOverlayedShowNames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuOverlayedShowNamesActionPerformed(evt);
@@ -1080,7 +1075,9 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuOverlayed.add(mnuOverlayedShowNames);
 
         mnuOverlayedShowForAll.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuOverlayedShowForAll.setSelected(DrMIPS.prefs.getBoolean("overlayed_show_for_all", false));
         mnuOverlayedShowForAll.setText("show_for_all_components");
+        mnuOverlayedShowForAll.setEnabled(mnuOverlayedData.isSelected());
         mnuOverlayedShowForAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuOverlayedShowForAllActionPerformed(evt);
@@ -1133,6 +1130,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuDatapath.add(jSeparator17);
 
         mnuRestoreLatencies.setText("restore_latencies");
+        mnuRestoreLatencies.setEnabled(mnuPerformanceMode.isSelected());
         mnuRestoreLatencies.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuRestoreLatenciesActionPerformed(evt);
@@ -1141,6 +1139,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuDatapath.add(mnuRestoreLatencies);
 
         mnuRemoveLatencies.setText("remove_latencies");
+        mnuRemoveLatencies.setEnabled(mnuPerformanceMode.isSelected());
         mnuRemoveLatencies.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuRemoveLatenciesActionPerformed(evt);
@@ -1219,7 +1218,7 @@ public class FrmSimulator extends javax.swing.JFrame {
         mnuExecute.add(jSeparator10);
 
         mnuResetDataBeforeAssembling.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        mnuResetDataBeforeAssembling.setSelected(true);
+        mnuResetDataBeforeAssembling.setSelected(DrMIPS.prefs.getBoolean("assemble_reset", true));
         mnuResetDataBeforeAssembling.setText("reset_data_before_assembling");
         mnuResetDataBeforeAssembling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icons/x16/reset_data.png"))); // NOI18N
         mnuExecute.add(mnuResetDataBeforeAssembling);
@@ -2536,14 +2535,15 @@ public class FrmSimulator extends javax.swing.JFrame {
 	 * If using tabs switch to use internal frames and vice-versa.
 	 */
 	private void switchUseInternalWindows() {
-		boolean currentWindows = DrMIPS.prefs.getBoolean("internal_windows", DrMIPS.DEFAULT_INTERNAL_WINDOWS);
+		boolean currentWindows = mnuWindows.isEnabled();
 		boolean windows = mnuInternalWindows.isSelected();
 		DrMIPS.prefs.putBoolean("internal_windows", windows);
 
-		if(windows && !currentWindows) // use internal frames
+		if(windows && !currentWindows) {
 			switchToInternalWindows();
-		else if(!windows && currentWindows) // use tabs
+		} else if(!windows && currentWindows) {
 			switchToTabs();
+		}
 	}
 
 	/**
