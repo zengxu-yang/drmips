@@ -3,7 +3,7 @@ Section: electronics
 Priority: optional
 Maintainer: Bruno Nova <brunomb.nova@gmail.com>
 Build-Depends: debhelper (>= 9), cmake (>= 2.8), default-jdk, junit4
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: http://brunonova.github.io/drmips/
 Vcs-Git: https://github.com/brunonova/drmips -b debian
 Vcs-Browser: https://github.com/brunonova/drmips/tree/debian

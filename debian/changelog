@@ -1,3 +1,10 @@
+drmips (2.0.2-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * debian/control: increase Standards-Version to 3.9.8.
+
+ -- Bruno Nova <brunomb.nova@gmail.com>  Fri, 28 Apr 2017 22:17:26 +0100
+
 drmips (2.0.1-2) unstable; urgency=low
 
   * debian/control: Depend on default-jre and Build-Depend on default-jdk,
