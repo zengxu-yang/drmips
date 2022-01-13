@@ -7,11 +7,12 @@ sourceCompatibility = project.javaVersion
 project.ext.mainClassName = "brunonova.drmips.pc.DrMIPS"
 
 dependencies {
-    compile project(":src:simulator")
-    compile "net.sf.jopt-simple:jopt-simple:5.0.3"
-    compile "com.fifesoft:autocomplete:2.5.0"
-    compile "com.fifesoft:rsyntaxtextarea:2.5.0"
-    compile "com.jtattoo:JTattoo:1.6.10"
+    implementation project(":src:simulator")
+    implementation "net.sf.jopt-simple:jopt-simple:5.0.3"
+    implementation "com.fifesoft:autocomplete:2.5.0"
+    implementation "com.fifesoft:rsyntaxtextarea:2.5.0"
+    implementation "com.jtattoo:JTattoo:1.6.10"
+    implementation "org.json:json:20211205"
 }
 
 // Task that will run the simulator
@@ -31,7 +32,7 @@ jar {
     }
 
     from {
-        configurations.compile.collect { zipTree(it) }  // bundle the dependencies
+        configurations.runtimeClasspath.collect { zipTree(it) }  // bundle the dependencies
     }
 }
 

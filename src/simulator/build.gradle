@@ -6,21 +6,23 @@ sourceCompatibility = project.javaVersion
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
 dependencies {
-    compile "org.json:json:20170516"
-    testCompile "junit:junit:4.12"
+    implementation "org.json:json:20170516"
+    testImplementation "junit:junit:4.12"
 }
 
 // Creates a .properties file with the version of the project
-task createProperties() << {
+task createProperties()  {
+    doLast {
     // Create the parent directory, if it doesn't exist
-    def resDir = new File("$buildDir/resources/main/brunonova/drmips/simulator")
-    resDir.mkdirs()
-
-    // Write the .properties file
-    new File("$buildDir/resources/main/brunonova/drmips/simulator/version.properties").withWriter { w ->
-        Properties p = new Properties()
-        p['version'] = project.version.toString()
-        p.store(w, null)
+	def resDir = new File("$buildDir/resources/main/brunonova/drmips/simulator")
+	resDir.mkdirs()
+    
+	// Write the .properties file
+	new File("$buildDir/resources/main/brunonova/drmips/simulator/version.properties").withWriter { w ->
+	    Properties p = new Properties()
+	    p['version'] = project.version.toString()
+	    p.store(w, null)
+	}
     }
 }
 classes.dependsOn createProperties
